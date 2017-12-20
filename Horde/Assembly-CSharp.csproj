@@ -53,6 +53,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\GridOverlay.cs" />
      <Compile Include="Assets\Scripts\MapController.cs" />
+     <Compile Include="Assets\Scripts\RayCast.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
