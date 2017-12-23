@@ -5,6 +5,7 @@ public class GridOverlay : MonoBehaviour {
  
     public GameObject map;
     public Camera camera;
+    public GameObject ghost;
  
     public bool showMain = true;
     public bool showSub = false;
@@ -92,17 +93,18 @@ public class GridOverlay : MonoBehaviour {
     }
 
     void DrawQuad() {
-        GL.Begin(GL.QUADS);
-        GL.Color(mainColor);
+        // GL.Begin(GL.QUADS);
+        // GL.Color(mainColor);
         var x = Mathf.Floor(hitPoint.x);
         // x = x - (x%largeStep)-smallStep;
         var y = Mathf.Floor(hitPoint.z);
         // y = y - (y%largeStep)-smallStep;
-        GL.Vertex3(x, 0.01f, y);
-        GL.Vertex3(x+1f, 0.01f, y);
-        GL.Vertex3(x+1f, 0.01f, y+1f);
-        GL.Vertex3(x, 0.01f, y+1f);
-        GL.End();
+        // GL.Vertex3(x, 0.01f, y);
+        // GL.Vertex3(x+1f, 0.01f, y);
+        // GL.Vertex3(x+1f, 0.01f, y+1f);
+        // GL.Vertex3(x, 0.01f, y+1f);
+        // GL.End();
+        ghost.transform.position = new Vector3(x+0.5f, 0.5f, y+0.5f);
     }
  
     void OnPostRender() {
