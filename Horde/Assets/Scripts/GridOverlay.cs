@@ -5,7 +5,10 @@ public class GridOverlay : MonoBehaviour {
  
     public GameObject map;
     public Camera camera;
-    public GameObject ghost;
+    public GameObject buildingGhost;
+    public GameObject wallGhost;
+
+    private GameObject ghost;
  
     public bool showMain = true;
     public bool showSub = false;
@@ -30,6 +33,9 @@ public class GridOverlay : MonoBehaviour {
     public Color subColor = new Color(0f, 0.5f, 0f, 1f);
     
     void Start () {
+        ghost = buildingGhost;
+        wallGhost.SetActive(false);
+
 		gridSizeX = (int) map.transform.localScale.x;
 		gridSizeZ = (int) map.transform.localScale.y;
 
@@ -38,6 +44,18 @@ public class GridOverlay : MonoBehaviour {
 	}
 
     void Update() {
+        if (Input.GetButtonDown("Switch")) {
+            if (ghost == buildingGhost) {
+                ghost = wallGhost;
+                buildingGhost.SetActive(false);
+                wallGhost.SetActive(true);
+            } else {
+                ghost = buildingGhost;
+                wallGhost.SetActive(false);
+                buildingGhost.SetActive(true);
+            }
+        }
+
 		RaycastHit hit;
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         

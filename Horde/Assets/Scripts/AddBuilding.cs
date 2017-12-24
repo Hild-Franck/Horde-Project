@@ -5,12 +5,18 @@ using UnityEngine;
 public class AddBuilding : MonoBehaviour {
 
 	public GameObject building;
+
 	private Vector3 colPosition;
 	private bool haveCollided = false;
-	
+
 	void Update () {
-		if (Input.GetMouseButtonDown(0) && checkPosition()) {
-			Instantiate(building, transform.position, Quaternion.identity);
+		if (Input.GetMouseButtonDown(0) && checkPosition() && BuildingController.instance.Check() && gameObject.activeSelf) {
+			Instantiate(building, transform.position, transform.rotation);
+			BuildingController.instance.AddBuilding();
+		}
+
+		if (Input.GetButtonDown("Rotate")) {
+			transform.Rotate(0f, 90f, 0f);
 		}
 	}
 
@@ -22,8 +28,6 @@ public class AddBuilding : MonoBehaviour {
 	}
 
 	bool checkPosition() {
-		Debug.Log(colPosition.x);
-		Debug.Log(colPosition.z);
 		return (!haveCollided || !(colPosition.x == transform.position.x && colPosition.z == transform.position.z));
 	}
 }
