@@ -12,8 +12,14 @@ public class PlayerController : MonoBehaviour {
 	private PlayerMotor motor;
 	public Animator swordAnimation;
 
+	public GameObject fireBall;
+	public GameObject sword;
+
+	private GameObject weapon;
+
 	void Start() {
 		motor = GetComponent<PlayerMotor>();
+		weapon = fireBall;
 	}
 
 	void Update () {
@@ -41,6 +47,18 @@ public class PlayerController : MonoBehaviour {
 
 		if (Input.GetButtonDown("Fire1")) {
 			swordAnimation.SetTrigger("Attacking");
+		}
+
+		if (Input.GetButtonDown("Switch")) {
+			if (weapon == fireBall) {
+				weapon = sword;
+				fireBall.SetActive(false);
+				sword.SetActive(true);
+			} else {
+				weapon = fireBall;
+				fireBall.SetActive(true);
+				sword.SetActive(false);
+			}
 		}
 	}
 }

@@ -578,9 +578,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4111291e897108940b24605b363203b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 1
   lookSensitivity: 2
   swordAnimation: {fileID: 1440044238}
+  fireBall: {fileID: 1572492292}
+  sword: {fileID: 1440044237}
 --- !u!114 &455407270
 MonoBehaviour:
   m_ObjectHideFlags: 0
