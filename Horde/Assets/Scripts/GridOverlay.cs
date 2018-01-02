@@ -2,6 +2,8 @@
 using System.Collections;
  
 public class GridOverlay : MonoBehaviour {
+
+    public static GridOverlay instance = null;
  
     public GameObject map;
     public Camera camera;
@@ -31,6 +33,19 @@ public class GridOverlay : MonoBehaviour {
 
     public  Color mainColor = new Color(0f, 1f, 0f, 1f);
     public Color subColor = new Color(0f, 0.5f, 0f, 1f);
+
+    public void removeGhost () {
+        ghost.SetActive(false);
+        ghost = null;
+    }
+
+    void Awake() {
+		if (instance == null) {
+			instance = this;
+		} else if (instance != this) {
+			Destroy(gameObject);
+		}
+	}
     
     void Start () {
         ghost = buildingGhost;

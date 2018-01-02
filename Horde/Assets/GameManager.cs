@@ -30,9 +30,11 @@ public class GameManager : MonoBehaviour {
 		if (Input.GetButtonDown("SwitchMode")) {
 			player.SetActive(true);
 			RTS.SetActive(false);
-			
+
 			RTSCamera.enabled = false;
 			FPSCamera.enabled = true;
+
+			GridOverlay.instance.removeGhost();
 		}
 	}
 }
