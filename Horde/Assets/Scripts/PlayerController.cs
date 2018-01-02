@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
 	private float lookSensitivity = 4f;
 
 	private PlayerMotor motor;
+	public Animator swordAnimation;
 
 	void Start() {
 		motor = GetComponent<PlayerMotor>();
@@ -37,5 +38,9 @@ public class PlayerController : MonoBehaviour {
 		Vector3 _cameraRotation = new Vector3(_xRot,  0f, 0f) * lookSensitivity;
 		
 		motor.RotateCamera(-_cameraRotation);
+
+		if (Input.GetButtonDown("Fire1")) {
+			swordAnimation.SetTrigger("Attacking");
+		}
 	}
 }
