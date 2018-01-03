@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour {
 		
 		motor.RotateCamera(-_cameraRotation);
 
-		if (Input.GetButtonDown("Fire1")) {
+		if (Input.GetButtonDown("Fire1") && weapon == sword) {
 			swordAnimation.SetTrigger("Attacking");
 		}
 
