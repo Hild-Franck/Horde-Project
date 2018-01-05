@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour {
 	public LayerMask buildingLayer;
 	public float attackCooldown = 10f;
 	public float attackRange = 1f;
+	public float health = 3f;
 
 	private NavMeshAgent agent;
 	private GameObject target;
@@ -59,6 +60,10 @@ public class EnemyController : MonoBehaviour {
 				}
 				nextAttack = Time.time + attackCooldown;
 			}
+		}
+
+		if (health == 0) {
+			Destroy(gameObject);
 		}
 	}
 
