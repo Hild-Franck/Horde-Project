@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33905255254915512}
   - component: {fileID: 136655100904142750}
   - component: {fileID: 23369366566698240}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: Cylinder (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33834864809502762}
   - component: {fileID: 136325606241659956}
   - component: {fileID: 23833123296278854}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: Cylinder (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 33938511962067734}
   - component: {fileID: 136763299274314602}
   - component: {fileID: 23812401521121844}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: Cylinder (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 33279835428157732}
   - component: {fileID: 136375175122915280}
   - component: {fileID: 23711711808667742}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 33031965225946700}
   - component: {fileID: 136231015737712564}
   - component: {fileID: 23381955232617404}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: Cylinder (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 33776040397196418}
   - component: {fileID: 136246285320592728}
   - component: {fileID: 23307433964690676}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: Cylinder (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 33793697156641196}
   - component: {fileID: 136750858187799906}
   - component: {fileID: 23598931988498880}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: Cylinder (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 33692933626922494}
   - component: {fileID: 136184444662010806}
   - component: {fileID: 23632693318436286}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 33654205863304962}
   - component: {fileID: 136627651387449540}
   - component: {fileID: 23255463215319554}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: Cylinder (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 33790953239436592}
   - component: {fileID: 136133670831036434}
   - component: {fileID: 23412730575041494}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: Cylinder (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 33685445940879972}
   - component: {fileID: 136889589374988302}
   - component: {fileID: 23592259716075346}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: Cylinder (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,8 @@ GameObject:
   - component: {fileID: 4431703971585030}
   - component: {fileID: 65178081509594380}
   - component: {fileID: 208426859382228978}
-  m_Layer: 2
+  - component: {fileID: 114055820777922776}
+  m_Layer: 9
   m_Name: Wall
   m_TagString: Building
   m_Icon: {fileID: 0}
@@ -237,7 +238,7 @@ GameObject:
   - component: {fileID: 33640033964445088}
   - component: {fileID: 136189319014980658}
   - component: {fileID: 23343271706228120}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: Cylinder (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -905,6 +906,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114055820777922776
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1940343902772822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18bee8df0b354914e8e37966664d6103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
 --- !u!136 &136133670831036434
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1070,7 +1083,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.1, y: 0.1, z: 0.1}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1

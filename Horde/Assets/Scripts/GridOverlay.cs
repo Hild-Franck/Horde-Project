@@ -10,6 +10,8 @@ public class GridOverlay : MonoBehaviour {
     public GameObject buildingGhost;
     public GameObject wallGhost;
 
+    public LayerMask mapLayer;
+
     private GameObject ghost;
  
     public bool showMain = true;
@@ -74,7 +76,7 @@ public class GridOverlay : MonoBehaviour {
 		RaycastHit hit;
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
         
-        if (Physics.Raycast(ray, out hit)) {
+        if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, mapLayer)) {
             Transform objectHit = hit.transform;
             cursorOnMap = true;
 			hitPoint = hit.point;
