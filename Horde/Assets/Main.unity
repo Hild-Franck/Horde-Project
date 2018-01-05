@@ -662,9 +662,10 @@ GameObject:
   m_Component:
   - component: {fileID: 455407268}
   - component: {fileID: 455407267}
+  - component: {fileID: 455407265}
   - component: {fileID: 455407270}
   - component: {fileID: 455407269}
-  - component: {fileID: 455407265}
+  - component: {fileID: 455407266}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -685,6 +686,18 @@ CapsuleCollider:
   m_Height: 0.28
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &455407266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 455407264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89360e5d66a45447b4b91b7e77152b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
 --- !u!54 &455407267
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2573,6 +2586,7 @@ GameObject:
   - component: {fileID: 2100488697}
   - component: {fileID: 2100488696}
   - component: {fileID: 2100488698}
+  - component: {fileID: 2100488700}
   - component: {fileID: 2100488699}
   m_Layer: 2
   m_Name: Enemy
@@ -2601,7 +2615,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2100488695}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.21, y: 0.137, z: -6.06}
+  m_LocalPosition: {x: -12.07, y: 0.137, z: 2.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1480568043}
@@ -2648,6 +2662,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2100488700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2100488695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89360e5d66a45447b4b91b7e77152b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
 --- !u!1 &2107254792
 GameObject:
   m_ObjectHideFlags: 0

@@ -51,11 +51,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\EnemyController.cs" />
      <Compile Include="Assets\GameManager.cs" />
      <Compile Include="Assets\Scripts\AddBuilding.cs" />
      <Compile Include="Assets\Scripts\AttackAnimation.cs" />
      <Compile Include="Assets\Scripts\BuildingController.cs" />
+     <Compile Include="Assets\Scripts\EnemyController.cs" />
+     <Compile Include="Assets\Scripts\EntityController.cs" />
      <Compile Include="Assets\Scripts\FireOrbController.cs" />
      <Compile Include="Assets\Scripts\FireProjectileController.cs" />
      <Compile Include="Assets\Scripts\GridOverlay.cs" />
@@ -64,8 +65,8 @@
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\PlayerMotor.cs" />
      <Compile Include="Assets\Scripts\RayCast.cs" />
-     <Compile Include="Assets\SwordController.cs" />
-     <Compile Include="Assets\WallController.cs" />
+     <Compile Include="Assets\Scripts\SwordController.cs" />
+     <Compile Include="Assets\Scripts\WallController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

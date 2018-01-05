@@ -54,8 +54,4 @@ public class PlayerMotor : MonoBehaviour {
 		// isColliding = true;
 	}
 
-	public void OnCollisionExit (Collision col) {
-		Debug.Log ("Leaving Wall");
-		// isColliding = false;
-	}
 }

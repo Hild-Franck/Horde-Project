@@ -11,7 +11,6 @@ public class EnemyController : MonoBehaviour {
 	public LayerMask buildingLayer;
 	public float attackCooldown = 10f;
 	public float attackRange = 1f;
-	public float health = 3f;
 
 	private NavMeshAgent agent;
 	private GameObject target;
@@ -53,8 +52,8 @@ public class EnemyController : MonoBehaviour {
 			float targetDistance = Vector3.Distance(target.transform.position, transform.position);
 			if (targetDistance < attackRange && Time.time > nextAttack) {
 				Debug.Log(target);
-				WallController wallController = target.GetComponent<WallController>();
-				if (--wallController.health == 0) {
+				EntityController entityController = target.GetComponent<EntityController>();
+				if (--entityController.health == 0) {
 					target = buildingToAttack;
 					MoveToPoint(target.transform.position);
 				}
@@ -62,9 +61,6 @@ public class EnemyController : MonoBehaviour {
 			}
 		}
 
-		if (health == 0) {
-			Destroy(gameObject);
-		}
 	}
 
 	void MoveToPoint (Vector3 point) {

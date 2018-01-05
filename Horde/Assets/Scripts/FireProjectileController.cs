@@ -14,8 +14,7 @@ public class FireProjectileController : MonoBehaviour {
 
 	void OnCollisionEnter (Collision col) {
 		if (col.gameObject.tag == "Enemy") {
-			Debug.Log("Touched");
-			(col.gameObject.GetComponent<EnemyController>()).health--;
+			(col.gameObject.GetComponent<EntityController>()).health--;
 		}
 		Destroy (gameObject);
 	}
