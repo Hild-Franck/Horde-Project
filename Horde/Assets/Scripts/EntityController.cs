@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class EntityController : MonoBehaviour {
 
-		public float health = 3f;
+	public float health = 3f;
 
-
-	// Use this for initialization
 	void Start () {
 		
 	}
@@ -15,6 +13,9 @@ public class EntityController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (health == 0) {
+			if (gameObject.tag == "Enemy") {
+				EnemyController.playerAttackCount--;
+			}
 			Destroy(gameObject);
 		}
 	}

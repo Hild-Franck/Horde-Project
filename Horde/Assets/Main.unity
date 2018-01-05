@@ -2615,7 +2615,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2100488695}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.07, y: 0.137, z: 2.48}
+  m_LocalPosition: {x: -11.05, y: 0.137, z: 2.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1480568043}
@@ -2636,11 +2636,13 @@ MonoBehaviour:
   buildingToAttack: {fileID: 889756390}
   player: {fileID: 455407264}
   lookRadius: 5
+  destructerLookRadius: 2.5
   buildingLayer:
     serializedVersion: 2
     m_Bits: 512
   attackCooldown: 2
   attackRange: 2
+  type: 1
 --- !u!195 &2100488699
 NavMeshAgent:
   m_ObjectHideFlags: 0

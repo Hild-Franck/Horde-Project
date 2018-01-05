@@ -5,35 +5,51 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour {
 
+	public enum EnemyType { Destructer, Killer };
+	public static List<Transform> enemies = new List<Transform>();
+
+	public static int playerAttackCount = 0;
+
 	public GameObject buildingToAttack;
 	public GameObject player;
 	public float lookRadius = 10f;
+	public float destructerLookRadius = 2.5f;
 	public LayerMask buildingLayer;
 	public float attackCooldown = 10f;
 	public float attackRange = 1f;
-
+	public EnemyType type = EnemyType.Killer;
+	
 	private NavMeshAgent agent;
 	private GameObject target;
 	private bool attacking = false;
 	private float nextAttack;
+	private float currentLookRadius;
 
 	// Use this for initialization
 	void Start () {
 		target = buildingToAttack;
 		agent = GetComponent<NavMeshAgent> ();
 		MoveToPoint(target.transform.position);
+		EnemyController.enemies.Add(transform);
+		currentLookRadius = lookRadius;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		float playerDistance = Vector3.Distance(player.transform.position, transform.position);
 
-		if (playerDistance <= lookRadius) {
-			target = player;
+		currentLookRadius = (type == EnemyType.Killer || EnemyController.playerAttackCount == 0) ? lookRadius : destructerLookRadius;
+
+		if (playerDistance <= currentLookRadius) {
+			if (target != player) {
+				target = player;
+				EnemyController.playerAttackCount++;
+			}
 			MoveToPoint(target.transform.position);
 		} else if (target == player) {
 			target = buildingToAttack;
 			MoveToPoint(target.transform.position);
+			EnemyController.playerAttackCount--;
 		}
 
 		if (agent.velocity == Vector3.zero) {
@@ -71,8 +87,12 @@ public class EnemyController : MonoBehaviour {
 		return (target.transform.position - transform.position);
 	}
 
-	void OnDrawGizmoSelected () {
+	void OnDrawGizmos () {
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(transform.position, lookRadius);
+		Gizmos.DrawWireSphere(transform.position, currentLookRadius);
+	}
+
+	public void SetType(EnemyType _type) {
+		type = _type;
 	}
 }
