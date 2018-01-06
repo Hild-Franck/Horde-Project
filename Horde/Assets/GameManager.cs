@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour {
 			FPSCamera.enabled = true;
 
 			GridOverlay.instance.removeGhost();
+			SpawnController.instance.StartWave();
+
 		}
 	}
 }

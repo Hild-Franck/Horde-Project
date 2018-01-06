@@ -19,4 +19,9 @@ public class EntityController : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
+
+	public float TakeDamage(float damage) {
+		health -= damage;
+		return health;
+	}
 }

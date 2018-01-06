@@ -217,9 +217,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4431703971585030}
+  - component: {fileID: 54807563427381706}
   - component: {fileID: 65178081509594380}
   - component: {fileID: 208426859382228978}
   - component: {fileID: 114055820777922776}
+  - component: {fileID: 114736651342857816}
   m_Layer: 9
   m_Name: Wall
   m_TagString: Building
@@ -894,6 +896,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1386626259788576}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54807563427381706
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1940343902772822}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!65 &65178081509594380
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -915,6 +932,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18bee8df0b354914e8e37966664d6103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+--- !u!114 &114736651342857816
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1940343902772822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89360e5d66a45447b4b91b7e77152b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
@@ -1083,7 +1112,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.1, y: 0.1, z: 0.1}
+  m_Extents: {x: 0.05, y: 0.05, z: 0.05}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1

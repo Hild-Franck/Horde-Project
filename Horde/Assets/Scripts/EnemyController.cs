@@ -15,15 +15,16 @@ public class EnemyController : MonoBehaviour {
 	public float lookRadius = 10f;
 	public float destructerLookRadius = 2.5f;
 	public LayerMask buildingLayer;
-	public float attackCooldown = 10f;
-	public float attackRange = 1f;
+	public float attackCooldown = 2f;
 	public EnemyType type = EnemyType.Killer;
 	
 	private NavMeshAgent agent;
 	private GameObject target;
 	private bool attacking = false;
+	private bool atRange = false;
 	private float nextAttack;
 	private float currentLookRadius;
+	private float spawnTime;
 
 	// Use this for initialization
 	void Start () {
@@ -32,55 +33,74 @@ public class EnemyController : MonoBehaviour {
 		MoveToPoint(target.transform.position);
 		EnemyController.enemies.Add(transform);
 		currentLookRadius = lookRadius;
+		spawnTime = Time.time;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		float playerDistance = Vector3.Distance(player.transform.position, transform.position);
 
-		currentLookRadius = (type == EnemyType.Killer || EnemyController.playerAttackCount == 0) ? lookRadius : destructerLookRadius;
+		float attackCount = EnemyController.playerAttackCount;
+
+		currentLookRadius = (type == EnemyType.Killer || attackCount == 0 || attacking)
+			? lookRadius
+			: destructerLookRadius;
+
+		if (Time.time > spawnTime + 0.5f) {
+			UpdateTarget();
+		}
+
+		if (attacking) {
+			Attack();
+		}
+
+	}
+
+	void UpdateTarget() {
+		float playerDistance = Vector3.Distance(player.transform.position, transform.position);
 
 		if (playerDistance <= currentLookRadius) {
 			if (target != player) {
-				target = player;
+				attacking = true;
 				EnemyController.playerAttackCount++;
 			}
-			MoveToPoint(target.transform.position);
+			SetTarget(player);
 		} else if (target == player) {
-			target = buildingToAttack;
-			MoveToPoint(target.transform.position);
+			attacking = false;
+			SetTarget(buildingToAttack);
 			EnemyController.playerAttackCount--;
 		}
-
-		if (agent.velocity == Vector3.zero) {
+		
+		if (agent.velocity.magnitude < 0.2f) {
 			if (target == buildingToAttack && !attacking) {
 				RaycastHit hit;
 				Physics.Raycast(transform.position, GetTargetDirection(), out hit, Mathf.Infinity, buildingLayer);
 				if ("Building" == hit.transform.gameObject.tag) {
-					Debug.Log(hit.transform.gameObject);
 					attacking = true;
 					target = hit.transform.gameObject;
 				}
 			}
 		}
+	}
 
-		if (attacking) {
-			float targetDistance = Vector3.Distance(target.transform.position, transform.position);
-			if (targetDistance < attackRange && Time.time > nextAttack) {
-				Debug.Log(target);
-				EntityController entityController = target.GetComponent<EntityController>();
-				if (--entityController.health == 0) {
-					target = buildingToAttack;
-					MoveToPoint(target.transform.position);
-				}
-				nextAttack = Time.time + attackCooldown;
+	void Attack() {
+		if (atRange && Time.time > nextAttack) {
+			Debug.Log(target);
+			EntityController entityController = target.GetComponent<EntityController>();
+			if (entityController.TakeDamage(1) == 0) {
+				attacking = false;
+				SetTarget(buildingToAttack);
 			}
+			nextAttack = Time.time + attackCooldown;
 		}
-
 	}
 
 	void MoveToPoint (Vector3 point) {
 		agent.SetDestination(point);
+	}
+
+	void SetTarget(GameObject newTarget) {
+		target = newTarget;
+		MoveToPoint(newTarget.transform.position);
 	}
 
 	Vector3 GetTargetDirection() {
@@ -88,11 +108,30 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void OnDrawGizmos () {
-		Gizmos.color = Color.red;
+		Gizmos.color = Color.blue;
 		Gizmos.DrawWireSphere(transform.position, currentLookRadius);
+		Gizmos.color = Color.red;
 	}
 
 	public void SetType(EnemyType _type) {
 		type = _type;
+	}
+
+	void OnTriggerEnter(Collider col) {
+		if (col.gameObject == target) {
+			atRange = true;
+		}
+	}
+
+	void OnTriggerStay(Collider col) {
+		if (col.gameObject == target) {
+			atRange = true;
+		}
+	}
+
+	void OnTriggerLeave(Collider col) {
+		if (col.gameObject == target) {
+			atRange = false;
+		}
 	}
 }
