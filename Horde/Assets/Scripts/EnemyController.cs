@@ -41,7 +41,7 @@ public class EnemyController : MonoBehaviour {
 
 		float attackCount = EnemyController.playerAttackCount;
 
-		currentLookRadius = (type == EnemyType.Killer || attackCount == 0 || attacking)
+		currentLookRadius = (type == EnemyType.Killer || attackCount == 0 || (attackCount == 1 && attacking))
 			? lookRadius
 			: destructerLookRadius;
 
@@ -84,7 +84,6 @@ public class EnemyController : MonoBehaviour {
 
 	void Attack() {
 		if (atRange && Time.time > nextAttack) {
-			Debug.Log(target);
 			EntityController entityController = target.GetComponent<EntityController>();
 			if (entityController.TakeDamage(1) == 0) {
 				attacking = false;
@@ -99,6 +98,7 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void SetTarget(GameObject newTarget) {
+		atRange = false;
 		target = newTarget;
 		MoveToPoint(newTarget.transform.position);
 	}
@@ -132,6 +132,12 @@ public class EnemyController : MonoBehaviour {
 	void OnTriggerLeave(Collider col) {
 		if (col.gameObject == target) {
 			atRange = false;
+		}
+	}
+
+	void OnDestroy() {
+		if (target == player) {
+			EnemyController.playerAttackCount--;
 		}
 	}
 }
