@@ -9,13 +9,20 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField]
 	private float lookSensitivity = 4f;
 
+	public float dashTime = 0.2f;
+	public float dashSpeed = 5f;
+
 	private PlayerMotor motor;
 	public Animator swordAnimation;
+	public Camera FPSCamera;
 
 	public GameObject fireBall;
 	public GameObject sword;
 
 	private GameObject weapon;
+	private bool isDashing = false;
+	private float nextDash;
+	private float smoothVelocity = 0.0f;
 
 	void Start() {
 		motor = GetComponent<PlayerMotor>();
@@ -30,6 +37,15 @@ public class PlayerController : MonoBehaviour {
 		Vector3 _movVertical = transform.forward * _zMov;
 
 		Vector3 _velocity = (_movHorizontal + _movVertical).normalized * speed;
+
+		if (isDashing) {
+			FPSCamera.fieldOfView = Mathf.SmoothDamp(FPSCamera.fieldOfView, 60, ref smoothVelocity, dashTime);
+			_velocity = Dash(_velocity);
+		}
+
+		if (!isDashing && FPSCamera.fieldOfView != 55) {
+			FPSCamera.fieldOfView = Mathf.SmoothDamp(FPSCamera.fieldOfView, 55, ref smoothVelocity, 0.1f);
+		}
 
 		motor.Move(_velocity);
 
@@ -60,5 +76,19 @@ public class PlayerController : MonoBehaviour {
 				sword.SetActive(false);
 			}
 		}
+
+		if (isDashing && Time.time > nextDash) {
+			isDashing = false;
+		}
+
+		if(Input.GetButtonDown("Jump") && _zMov == -1.0f && !isDashing) {
+			isDashing = true;
+
+			nextDash = Time.time + dashTime;
+		}
+	}
+
+	Vector3 Dash(Vector3 _velocity) {
+		return _velocity + transform.forward * -dashSpeed;
 	}
 }

@@ -640,7 +640,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 455407264}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.6939518, z: -0, w: 0.7200215}
   m_LocalPosition: {x: -18.121, y: 0.196, z: -20.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -648,7 +648,7 @@ Transform:
   - {fileID: 625047893}
   m_Father: {fileID: 0}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -87.887, z: 0}
 --- !u!114 &455407269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,7 +662,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   lookSensitivity: 2
+  dashTime: 0.1
+  dashSpeed: 3.5
   swordAnimation: {fileID: 1440044238}
+  FPSCamera: {fileID: 2045756266}
   fireBall: {fileID: 1572492292}
   sword: {fileID: 1440044237}
 --- !u!114 &455407270
