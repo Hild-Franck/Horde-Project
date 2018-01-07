@@ -664,6 +664,7 @@ MonoBehaviour:
   lookSensitivity: 2
   dashTime: 0.1
   dashSpeed: 3.5
+  isAttacking: 0
   swordAnimation: {fileID: 1440044238}
   FPSCamera: {fileID: 2045756266}
   fireBall: {fileID: 1572492292}
@@ -1595,6 +1596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c404c478f5ba3ee48bc2ce1ec6f99db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 455407269}
 --- !u!1 &1513468035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1650,11 +1652,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b8a0c05538f94f4783d0177184d54f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hazardCount: 6
+  hazardCount: 10
   enemy: {fileID: 1759927580119830, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
   buildingToDefend: {fileID: 889756390}
   player: {fileID: 455407264}
-  spawnWait: 2
+  spawnWait: 1
 --- !u!1 &1517307562
 GameObject:
   m_ObjectHideFlags: 0
