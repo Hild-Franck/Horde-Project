@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
 
 	private GameObject weapon;
 	private bool isDashing = false;
+	private bool isGuarding = false;
 	private float nextDash;
 	private float smoothVelocity = 0.0f;
 
@@ -68,6 +69,15 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetButtonDown("Fire1") && weapon == sword) {
 			swordAnimation.SetTrigger("Attacking");
 			isAttacking = true;
+		}
+
+		if (Input.GetButtonDown("Fire2") && !isGuarding) {
+			swordAnimation.SetTrigger("Guarding");
+			isGuarding = true;
+		} else if (Input.GetButtonUp("Fire2") && isGuarding){
+			Debug.Log("Hello !");	
+			swordAnimation.SetBool("Guarding", false);
+			isGuarding = false;
 		}
 
 		if (Input.GetButtonDown("Switch")) {
