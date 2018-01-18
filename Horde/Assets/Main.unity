@@ -922,7 +922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29978d6e8806e4b27a54ed706d296a00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxBuildings: 20
+  maxBuildings: 30
 --- !u!4 &898407831
 Transform:
   m_ObjectHideFlags: 0
