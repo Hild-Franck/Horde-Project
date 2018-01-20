@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour {
 			isDashing = false;
 		}
 
-		if(Input.GetButtonDown("Jump") && _zMov == -1.0f && !isDashing && !entityController.isGuarding) {
+		if(Input.GetButtonDown("Jump") && _zMov == -1.0f && !isDashing) {
 			isDashing = true;
 
 			nextDash = Time.time + dashTime;
