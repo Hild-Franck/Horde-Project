@@ -115,7 +115,7 @@ public class EnemyController : MonoBehaviour {
 		Gizmos.color = Color.blue;
 		Gizmos.DrawWireSphere(transform.position, currentLookRadius);
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(transform.position, 0.5f);
+		Gizmos.DrawWireSphere(transform.position, 0.4f);
 	}
 
 	public void SetType(EnemyType _type) {

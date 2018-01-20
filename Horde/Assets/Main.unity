@@ -618,7 +618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c89360e5d66a45447b4b91b7e77152b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 20
   swordAnimation: {fileID: 1440044238}
   isGuarding: 0
   isAttacking: 0
@@ -855,6 +855,53 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 831274129}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &833467678
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -18.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.137
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -20.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114377000058660838, guid: 5f1401291d1a4e54a9a26919f38cf25a,
+        type: 2}
+      propertyPath: attackCooldown
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &889756390
 GameObject:
   m_ObjectHideFlags: 0
