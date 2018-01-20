@@ -5,12 +5,10 @@ using UnityEngine;
 public class EntityController : MonoBehaviour {
 
 	public float health = 3f;
+	public Animator swordAnimation;
 
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
+	public bool isGuarding = false;
+
 	void Update () {
 		if (health == 0) {
 			if (gameObject.tag == "Enemy") {
@@ -21,7 +19,22 @@ public class EntityController : MonoBehaviour {
 	}
 
 	public float TakeDamage(float damage) {
-		health -= damage;
-		return health;
+		if (!isGuarding) {
+			health -= damage;
+			return health;
+		} else {
+			Debug.Log("Guarding !");
+			return health;
+		}
+	}
+
+	public void Guard() {
+		swordAnimation.SetTrigger("Guarding");
+		isGuarding = true;
+	}
+
+	public void Unguard() {
+		swordAnimation.SetBool("Guarding", false);
+		isGuarding = false;
 	}
 }

@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour {
 	
 	void Update () {
 		if (Input.GetButtonDown("SwitchMode")) {
+			Cursor.lockState = CursorLockMode.Locked;
 			player.SetActive(true);
 			RTS.SetActive(false);
 
@@ -37,6 +38,11 @@ public class GameManager : MonoBehaviour {
 			GridOverlay.instance.removeGhost();
 			SpawnController.instance.StartWave();
 
+		}
+
+		if (Input.GetButtonDown("Escape")) {
+			UnityEditor.EditorApplication.isPlaying = false;
+			Application.Quit();
 		}
 	}
 }

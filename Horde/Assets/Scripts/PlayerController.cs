@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 	public bool isAttacking = false;
 
 	private PlayerMotor motor;
+	private EntityController entityController;
 	public Animator swordAnimation;
 	public Camera FPSCamera;
 
@@ -25,10 +26,12 @@ public class PlayerController : MonoBehaviour {
 	private bool isGuarding = false;
 	private float nextDash;
 	private float smoothVelocity = 0.0f;
+	private float speedModifier = 1f;
 
 	void Start() {
 		motor = GetComponent<PlayerMotor>();
-		weapon = fireBall;
+		entityController = GetComponent<EntityController>();
+		weapon = sword;
 	}
 
 	void Update () {
@@ -38,7 +41,7 @@ public class PlayerController : MonoBehaviour {
 		Vector3 _movHorizontal = transform.right * _xMov;
 		Vector3 _movVertical = transform.forward * _zMov;
 
-		Vector3 _velocity = (_movHorizontal + _movVertical).normalized * speed;
+		Vector3 _velocity = (_movHorizontal + _movVertical).normalized * speed * speedModifier;
 
 		if (isDashing) {
 			FPSCamera.fieldOfView = Mathf.SmoothDamp(FPSCamera.fieldOfView, 60, ref smoothVelocity, dashTime);
@@ -71,13 +74,12 @@ public class PlayerController : MonoBehaviour {
 			isAttacking = true;
 		}
 
-		if (Input.GetButtonDown("Fire2") && !isGuarding) {
-			swordAnimation.SetTrigger("Guarding");
-			isGuarding = true;
-		} else if (Input.GetButtonUp("Fire2") && isGuarding){
-			Debug.Log("Hello !");	
-			swordAnimation.SetBool("Guarding", false);
-			isGuarding = false;
+		if (Input.GetButtonDown("Fire2") && !entityController.isGuarding) {
+			entityController.Guard();
+			speedModifier = 0.6f;
+		} else if (Input.GetButtonUp("Fire2") && entityController.isGuarding){
+			entityController.Unguard();
+			speedModifier = 1f;
 		}
 
 		if (Input.GetButtonDown("Switch")) {
@@ -96,7 +98,7 @@ public class PlayerController : MonoBehaviour {
 			isDashing = false;
 		}
 
-		if(Input.GetButtonDown("Jump") && _zMov == -1.0f && !isDashing) {
+		if(Input.GetButtonDown("Jump") && _zMov == -1.0f && !isDashing && !entityController.isGuarding) {
 			isDashing = true;
 
 			nextDash = Time.time + dashTime;

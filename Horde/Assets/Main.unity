@@ -619,6 +619,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
+  swordAnimation: {fileID: 1440044238}
+  isGuarding: 0
 --- !u!54 &455407267
 Rigidbody:
   m_ObjectHideFlags: 0

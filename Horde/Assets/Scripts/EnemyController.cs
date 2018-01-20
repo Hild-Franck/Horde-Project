@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour {
 	public GameObject buildingToAttack;
 	public GameObject player;
 	public float lookRadius = 10f;
-	public float destructerLookRadius = 2.5f;
+	public float destructerLookRadius = 1.5f;
 	public LayerMask buildingLayer;
 	public float attackCooldown = 2f;
 	public EnemyType type = EnemyType.Killer;
@@ -22,7 +22,7 @@ public class EnemyController : MonoBehaviour {
 	private GameObject target;
 	private bool attacking = false;
 	private bool atRange = false;
-	private float nextAttack;
+	private float nextAttack = 0;
 	private float currentLookRadius;
 	private float spawnTime;
 
@@ -83,6 +83,7 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void Attack() {
+		// Debug.Log(atRange);
 		if (atRange && Time.time > nextAttack) {
 			EntityController entityController = target.GetComponent<EntityController>();
 			if (entityController.TakeDamage(1) == 0) {
@@ -98,7 +99,6 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void SetTarget(GameObject newTarget) {
-		atRange = false;
 		target = newTarget;
 		MoveToPoint(newTarget.transform.position);
 	}
@@ -111,6 +111,7 @@ public class EnemyController : MonoBehaviour {
 		Gizmos.color = Color.blue;
 		Gizmos.DrawWireSphere(transform.position, currentLookRadius);
 		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(transform.position, 0.5f);
 	}
 
 	public void SetType(EnemyType _type) {
@@ -119,6 +120,7 @@ public class EnemyController : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col) {
 		if (col.gameObject == target) {
+			Debug.Log("Prout prout");
 			atRange = true;
 		}
 	}
@@ -131,6 +133,7 @@ public class EnemyController : MonoBehaviour {
 
 	void OnTriggerLeave(Collider col) {
 		if (col.gameObject == target) {
+			Debug.Log("Prout");
 			atRange = false;
 		}
 	}
