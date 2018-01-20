@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SwordController : MonoBehaviour {
 
-	public PlayerController playerController;
-
+	public EntityController entityController;
 
 	void OnTriggerEnter(Collider col) {
-		if (col.gameObject.tag == "Enemy" && playerController.isAttacking) {
-			(col.gameObject.GetComponent<EntityController>()).health--;
+			Debug.Log(entityController.isAttacking);
+		if (col.gameObject.tag == "Enemy" && entityController.isAttacking) {
+			(col.gameObject.GetComponent<EntityController>()).TakeDamage(1);
 		}
 	}
 }

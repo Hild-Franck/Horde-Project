@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour {
 	public GameObject player;
 	public float lookRadius = 10f;
 	public float destructerLookRadius = 1.5f;
+	public float attackRadius = 0.4f;
 	public LayerMask buildingLayer;
 	public float attackCooldown = 2f;
 	public EnemyType type = EnemyType.Killer;
@@ -60,7 +61,7 @@ public class EnemyController : MonoBehaviour {
 
 	void UpdateTarget() {
 		float playerDistance = Vector3.Distance(player.transform.position, transform.position);
-
+	
 		if (playerDistance <= currentLookRadius) {
 			if (target != player) {
 				attacking = true;
@@ -71,6 +72,12 @@ public class EnemyController : MonoBehaviour {
 			attacking = false;
 			SetTarget(buildingToAttack);
 			EnemyController.playerAttackCount--;
+		}
+
+		if (Vector3.Distance(target.transform.position, transform.position) <= attackRadius) {
+			atRange = true;
+		} else {
+			atRange = false;
 		}
 		
 		if (agent.velocity.magnitude < 0.2f) {
@@ -115,29 +122,11 @@ public class EnemyController : MonoBehaviour {
 		Gizmos.color = Color.blue;
 		Gizmos.DrawWireSphere(transform.position, currentLookRadius);
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(transform.position, 0.4f);
+		Gizmos.DrawWireSphere(transform.position, attackRadius);
 	}
 
 	public void SetType(EnemyType _type) {
 		type = _type;
-	}
-
-	void OnTriggerEnter(Collider col) {
-		if (col.gameObject == target) {
-			atRange = true;
-		}
-	}
-
-	void OnTriggerStay(Collider col) {
-		if (col.gameObject == target) {
-			atRange = true;
-		}
-	}
-
-	void OnTriggerExit(Collider col) {
-		if (col.gameObject == target) {
-			atRange = false;
-		}
 	}
 
 	void OnDestroy() {

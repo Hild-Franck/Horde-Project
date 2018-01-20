@@ -667,7 +667,6 @@ MonoBehaviour:
   lookSensitivity: 2
   dashTime: 0.1
   dashSpeed: 3.5
-  isAttacking: 0
   swordAnimation: {fileID: 1440044238}
   FPSCamera: {fileID: 2045756266}
   fireBall: {fileID: 1572492292}
@@ -855,53 +854,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 831274129}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &833467678
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -18.92
-      objectReference: {fileID: 0}
-    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.137
-      objectReference: {fileID: 0}
-    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -20.47
-      objectReference: {fileID: 0}
-    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4808337481767166, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114377000058660838, guid: 5f1401291d1a4e54a9a26919f38cf25a,
-        type: 2}
-      propertyPath: attackCooldown
-      value: 3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 5f1401291d1a4e54a9a26919f38cf25a, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &889756390
 GameObject:
   m_ObjectHideFlags: 0
@@ -1646,7 +1598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c404c478f5ba3ee48bc2ce1ec6f99db3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 455407269}
+  entityController: {fileID: 455407266}
 --- !u!1 &1513468035
 GameObject:
   m_ObjectHideFlags: 0

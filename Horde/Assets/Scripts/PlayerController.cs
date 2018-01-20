@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour {
 
 	public float dashTime = 0.2f;
 	public float dashSpeed = 5f;
-	public bool isAttacking = false;
 
 	private PlayerMotor motor;
 	private EntityController entityController;
@@ -65,9 +64,6 @@ public class PlayerController : MonoBehaviour {
 		Vector3 _cameraRotation = new Vector3(_xRot,  0f, 0f) * lookSensitivity;
 		
 		motor.RotateCamera(-_cameraRotation);
-		// if (isAttacking && (!swordAnimation.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !swordAnimation.IsInTransition(0))) {
-		// 	isAttacking = false;
-		// }
 
 		if (Input.GetButtonDown("Fire1") && weapon == sword) {
 			entityController.Attack();

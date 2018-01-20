@@ -17,6 +17,10 @@ public class EntityController : MonoBehaviour {
 			}
 			Destroy(gameObject);
 		}
+
+		if (isAttacking && !swordAnimation.GetBool("Attacking")) {
+			isAttacking = false;
+		}
 	}
 
 	public float TakeDamage(float damage) {
