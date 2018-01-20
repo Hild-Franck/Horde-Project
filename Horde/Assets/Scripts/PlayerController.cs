@@ -65,13 +65,12 @@ public class PlayerController : MonoBehaviour {
 		Vector3 _cameraRotation = new Vector3(_xRot,  0f, 0f) * lookSensitivity;
 		
 		motor.RotateCamera(-_cameraRotation);
-		if (isAttacking && (!swordAnimation.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !swordAnimation.IsInTransition(0))) {
-			isAttacking = false;
-		}
+		// if (isAttacking && (!swordAnimation.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !swordAnimation.IsInTransition(0))) {
+		// 	isAttacking = false;
+		// }
 
 		if (Input.GetButtonDown("Fire1") && weapon == sword) {
-			swordAnimation.SetTrigger("Attacking");
-			isAttacking = true;
+			entityController.Attack();
 		}
 
 		if (Input.GetButtonDown("Fire2") && !entityController.isGuarding) {

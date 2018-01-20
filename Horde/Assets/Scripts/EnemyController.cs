@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour {
 	public float attackCooldown = 2f;
 	public EnemyType type = EnemyType.Killer;
 	
+	private EntityController entityController;
 	private NavMeshAgent agent;
 	private GameObject target;
 	private bool attacking = false;
@@ -34,6 +35,8 @@ public class EnemyController : MonoBehaviour {
 		EnemyController.enemies.Add(transform);
 		currentLookRadius = lookRadius;
 		spawnTime = Time.time;
+		entityController = GetComponent<EntityController>();
+
 	}
 	
 	// Update is called once per frame
@@ -74,7 +77,7 @@ public class EnemyController : MonoBehaviour {
 			if (target == buildingToAttack && !attacking) {
 				RaycastHit hit;
 				Physics.Raycast(transform.position, GetTargetDirection(), out hit, Mathf.Infinity, buildingLayer);
-				if ("Building" == hit.transform.gameObject.tag) {
+				if (hit.transform != null && "Building" == hit.transform.gameObject.tag) {
 					attacking = true;
 					target = hit.transform.gameObject;
 				}
@@ -85,8 +88,9 @@ public class EnemyController : MonoBehaviour {
 	void Attack() {
 		// Debug.Log(atRange);
 		if (atRange && Time.time > nextAttack) {
-			EntityController entityController = target.GetComponent<EntityController>();
-			if (entityController.TakeDamage(1) == 0) {
+			EntityController otherEntityController = target.GetComponent<EntityController>();
+			entityController.Attack();
+			if (otherEntityController.TakeDamage(1) == 0) {
 				attacking = false;
 				SetTarget(buildingToAttack);
 			}
@@ -120,7 +124,6 @@ public class EnemyController : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col) {
 		if (col.gameObject == target) {
-			Debug.Log("Prout prout");
 			atRange = true;
 		}
 	}
@@ -131,9 +134,8 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerLeave(Collider col) {
+	void OnTriggerExit(Collider col) {
 		if (col.gameObject == target) {
-			Debug.Log("Prout");
 			atRange = false;
 		}
 	}

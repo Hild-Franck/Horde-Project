@@ -8,6 +8,7 @@ public class EntityController : MonoBehaviour {
 	public Animator swordAnimation;
 
 	public bool isGuarding = false;
+	public bool isAttacking = false;
 
 	void Update () {
 		if (health == 0) {
@@ -36,5 +37,10 @@ public class EntityController : MonoBehaviour {
 	public void Unguard() {
 		swordAnimation.SetBool("Guarding", false);
 		isGuarding = false;
+	}
+
+	public void Attack() {
+		swordAnimation.SetTrigger("Attacking");
+		isAttacking = true;
 	}
 }
