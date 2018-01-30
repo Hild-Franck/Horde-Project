@@ -10,9 +10,9 @@ public class AddBuilding : MonoBehaviour {
 	private bool haveCollided = false;
 
 	void Update () {
-		if (Input.GetMouseButtonDown(0) && checkPosition() && BuildingController.instance.Check() && gameObject.activeSelf) {
+		if (Input.GetMouseButtonDown(0) && checkPosition() && BuildingController.instance.Check(building) && gameObject.activeSelf) {
 			Instantiate(building, transform.position, transform.rotation);
-			BuildingController.instance.AddBuilding();
+			BuildingController.instance.AddBuilding(building);
 		}
 
 		if (Input.GetButtonDown("Rotate")) {

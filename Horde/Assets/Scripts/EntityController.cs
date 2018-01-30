@@ -10,6 +10,14 @@ public class EntityController : MonoBehaviour {
 	public bool isGuarding = false;
 	public bool isAttacking = false;
 
+	private Material material;
+
+	void Start() {
+		GameObject graphic = transform.Find("Graphic").gameObject;
+		GameObject mesh = graphic.transform.Find("Mesh").gameObject;
+		material = mesh.GetComponent<Renderer>().material;
+	}
+
 	void Update () {
 		if (health == 0) {
 			if (gameObject.tag == "Enemy") {
@@ -25,6 +33,7 @@ public class EntityController : MonoBehaviour {
 
 	public float TakeDamage(float damage) {
 		if (!isGuarding) {
+			StartCoroutine(flashWhite());
 			health -= damage;
 			return health;
 		} else {
@@ -50,5 +59,12 @@ public class EntityController : MonoBehaviour {
 	public void Attack() {
 		swordAnimation.SetTrigger("Attacking");
 		isAttacking = true;
+	}
+
+	IEnumerator flashWhite() {
+		Color color = material.color;
+		material.color = Color.white;
+		yield return new WaitForSeconds(0.1f);
+		material.color = color;
 	}
 }

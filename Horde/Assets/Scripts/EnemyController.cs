@@ -93,7 +93,6 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void Attack() {
-		// Debug.Log(atRange);
 		if (atRange && Time.time > nextAttack) {
 			EntityController otherEntityController = target.GetComponent<EntityController>();
 			entityController.Attack();

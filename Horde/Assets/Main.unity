@@ -924,7 +924,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29978d6e8806e4b27a54ed706d296a00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxBuildings: 30
+  maxBuildings: 5
+  maxWalls: 25
 --- !u!4 &898407831
 Transform:
   m_ObjectHideFlags: 0
@@ -949,7 +950,7 @@ GameObject:
   - component: {fileID: 942177490}
   - component: {fileID: 942177489}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

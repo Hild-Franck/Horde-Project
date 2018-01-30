@@ -14,9 +14,6 @@ public class RayCast : MonoBehaviour {
         
         if (Physics.Raycast(ray, out hit)) {
             Transform objectHit = hit.transform;
-			Debug.Log(hit.point.x);
-            
-            // Do something with the object that was hit by the raycast.
         }
 	}
 }
