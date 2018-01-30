@@ -33,6 +33,10 @@ public class EntityController : MonoBehaviour {
 		}
 	}
 
+	public bool CheckAttack() {
+		return (isAttacking && swordAnimation.GetBool("Attacking"));
+	}
+
 	public void Guard() {
 		swordAnimation.SetTrigger("Guarding");
 		isGuarding = true;

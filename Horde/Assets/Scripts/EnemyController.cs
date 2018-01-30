@@ -97,10 +97,6 @@ public class EnemyController : MonoBehaviour {
 		if (atRange && Time.time > nextAttack) {
 			EntityController otherEntityController = target.GetComponent<EntityController>();
 			entityController.Attack();
-			if (otherEntityController.TakeDamage(1) == 0) {
-				attacking = false;
-				SetTarget(buildingToAttack);
-			}
 			nextAttack = Time.time + attackCooldown;
 		}
 	}
