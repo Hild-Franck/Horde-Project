@@ -9,6 +9,7 @@ public class EntityController : MonoBehaviour {
 
 	public bool isGuarding = false;
 	public bool isAttacking = false;
+	public bool isHit = false;
 
 	private Material material;
 
@@ -62,9 +63,11 @@ public class EntityController : MonoBehaviour {
 	}
 
 	IEnumerator flashWhite() {
+		isHit = true;
 		Color color = material.color;
 		material.color = Color.white;
 		yield return new WaitForSeconds(0.1f);
 		material.color = color;
+		isHit = false;
 	}
 }

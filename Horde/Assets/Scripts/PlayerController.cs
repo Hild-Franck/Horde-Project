@@ -16,12 +16,12 @@ public class PlayerController : MonoBehaviour {
 	private EntityController entityController;
 	public Animator swordAnimation;
 	public Camera FPSCamera;
+	public GameObject weapon;
+	public bool isDashing = false;
 
 	public GameObject fireBall;
 	public GameObject sword;
 
-	private GameObject weapon;
-	private bool isDashing = false;
 	private bool isGuarding = false;
 	private float nextDash;
 	private float smoothVelocity = 0.0f;

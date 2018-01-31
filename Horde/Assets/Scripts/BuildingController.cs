@@ -8,8 +8,8 @@ public class BuildingController : MonoBehaviour {
 
 	public int maxBuildings = 5;
 	public int maxWalls = 25;
-	private int currentBuildings = 0;
-	private int currentWalls = 0;
+	public int currentBuildings = 0;
+	public int currentWalls = 0;
 
 	void Awake() {
 		if (instance == null) {

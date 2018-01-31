@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DebugDisplayer.cs" />
      <Compile Include="Assets\Scripts\AddBuilding.cs" />
      <Compile Include="Assets\Scripts\AttackAnimation.cs" />
      <Compile Include="Assets\Scripts\BuildingController.cs" />
