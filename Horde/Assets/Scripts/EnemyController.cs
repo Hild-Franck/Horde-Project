@@ -61,8 +61,16 @@ public class EnemyController : MonoBehaviour {
 
 	void UpdateTarget() {
 		float playerDistance = Vector3.Distance(player.transform.position, transform.position);
+
+		bool minCnt;
+
+		if (type == EnemyType.Destructer) {
+			minCnt = (attacking || EnemyController.playerAttackCount <= 2);
+		} else {
+			minCnt = (attacking || EnemyController.playerAttackCount <= 5);
+		}
 	
-		if (playerDistance <= currentLookRadius) {
+		if (playerDistance <= currentLookRadius && minCnt) {
 			if (target != player) {
 				attacking = true;
 				EnemyController.playerAttackCount++;
@@ -71,6 +79,7 @@ public class EnemyController : MonoBehaviour {
 		} else if (target == player) {
 			attacking = false;
 			SetTarget(buildingToAttack);
+			Debug.Log("Here");
 			EnemyController.playerAttackCount--;
 		}
 
@@ -125,8 +134,8 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void OnDestroy() {
-		if (target == player) {
-			EnemyController.playerAttackCount--;
-		}
+		// if (target == player) {
+		// 	EnemyController.playerAttackCount--;
+		// }
 	}
 }
