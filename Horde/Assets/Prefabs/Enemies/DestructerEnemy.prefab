@@ -412,12 +412,12 @@ MonoBehaviour:
   buildingToAttack: {fileID: 0}
   player: {fileID: 0}
   lookRadius: 5
-  destructerLookRadius: 2.5
+  destructerLookRadius: 1
   attackRadius: 0.5
   buildingLayer:
     serializedVersion: 2
     m_Bits: 512
-  attackCooldown: 3
+  attackCooldown: 2
   type: 0
 --- !u!114 &114804374699272280
 MonoBehaviour:
@@ -453,7 +453,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.05
-  m_Speed: 0.4
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 180
