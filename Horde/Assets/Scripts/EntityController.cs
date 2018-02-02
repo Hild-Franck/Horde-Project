@@ -1,15 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class EntityController : MonoBehaviour {
 
-	public float health = 3f;
+	public float startHealth = 3f;
+	public float health;
 	public Animator swordAnimation;
 
 	public bool isGuarding = false;
 	public bool isAttacking = false;
 	public bool isHit = false;
+
+	[Header("Unity Stuff")]
+	public Image healthBar;
 
 	private Material material;
 
@@ -17,6 +22,7 @@ public class EntityController : MonoBehaviour {
 		GameObject graphic = transform.Find("Graphic").gameObject;
 		GameObject mesh = graphic.transform.Find("Mesh").gameObject;
 		material = mesh.GetComponent<Renderer>().material;
+		health = startHealth;
 	}
 
 	void Update () {
@@ -35,6 +41,7 @@ public class EntityController : MonoBehaviour {
 	public float TakeDamage(float damage) {
 		if (!isGuarding) {
 			StartCoroutine(flashWhite());
+			healthBar.fillAmount = health / startHealth;
 			health -= damage;
 			return health;
 		} else {

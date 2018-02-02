@@ -35,6 +35,7 @@ public class SpawnController : MonoBehaviour {
 			}
 			enemyInstance.GetComponent<EnemyController>().buildingToAttack = buildingToDefend;
 			enemyInstance.GetComponent<EnemyController>().player = player;
+			enemyInstance.GetComponent<EnemyController>().player = player;
 			yield return new WaitForSeconds (spawnWait);
 		}
 		hazardCount *= 2;
