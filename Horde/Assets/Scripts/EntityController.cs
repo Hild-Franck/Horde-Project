@@ -41,8 +41,8 @@ public class EntityController : MonoBehaviour {
 	public float TakeDamage(float damage) {
 		if (!isGuarding) {
 			StartCoroutine(flashWhite());
-			healthBar.fillAmount = health / startHealth;
 			health -= damage;
+			healthBar.fillAmount = health / startHealth;
 			return health;
 		} else {
 			Debug.Log("Guarding !");
