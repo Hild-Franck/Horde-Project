@@ -1209,8 +1209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c89360e5d66a45447b4b91b7e77152b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 5
-  health: 5
+  startHealth: 25
+  health: 25
   swordAnimation: {fileID: 0}
   isGuarding: 0
   isAttacking: 0
@@ -2081,7 +2081,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b8a0c05538f94f4783d0177184d54f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hazardCount: 1
+  hazardCount: 10
   destructerEnemy: {fileID: 1900150898166904, guid: fcf91e5e6a1b0d942bce20798c6353fe,
     type: 2}
   killerEnemy: {fileID: 1073266347818494, guid: 50e491f6d6be8a647bfcbd40bf40e321,

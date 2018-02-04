@@ -13,7 +13,6 @@ public class EnemyController : MonoBehaviour {
 	public GameObject buildingToAttack;
 	public GameObject player;
 	public float lookRadius = 10f;
-	public float destructerLookRadius = 1.5f;
 	public float attackRadius = 0.4f;
 	public LayerMask buildingLayer;
 	public float attackCooldown = 2f;
@@ -27,7 +26,6 @@ public class EnemyController : MonoBehaviour {
 	private bool attacking = false;
 	private bool atRange = false;
 	private float nextAttack = 0;
-	private float currentLookRadius;
 	private float spawnTime;
 
 	// Use this for initialization
@@ -36,7 +34,6 @@ public class EnemyController : MonoBehaviour {
 		SetTarget(buildingToAttack);
 		MoveToPoint(target.transform.position);
 		EnemyController.enemies.Add(transform);
-		currentLookRadius = lookRadius;
 		spawnTime = Time.time;
 		entityController = GetComponent<EntityController>();
 		bounds = GetComponent<Collider>().bounds;
@@ -46,10 +43,6 @@ public class EnemyController : MonoBehaviour {
 	void Update () {
 
 		float attackCount = EnemyController.playerAttackCount;
-
-		currentLookRadius = (type == EnemyType.Killer || attackCount == 0 || (attackCount == 1 && attacking))
-			? lookRadius
-			: destructerLookRadius;
 
 		if (Time.time > spawnTime + 0.5f) {
 			UpdateTarget();
@@ -76,7 +69,7 @@ public class EnemyController : MonoBehaviour {
 			minCnt = (atRange || EnemyController.playerAttackCount <= 5);
 		}
 	
-		if (playerDistance <= currentLookRadius && minCnt) {
+		if (playerDistance <= lookRadius && minCnt) {
 			if (target != player) {
 				EnemyController.playerAttackCount++;
 			}
@@ -131,7 +124,7 @@ public class EnemyController : MonoBehaviour {
 
 	void OnDrawGizmos () {
 		Gizmos.color = Color.blue;
-		Gizmos.DrawWireSphere(transform.position, currentLookRadius);
+		Gizmos.DrawWireSphere(transform.position, lookRadius);
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere(transform.position, attackRadius);
 	}
