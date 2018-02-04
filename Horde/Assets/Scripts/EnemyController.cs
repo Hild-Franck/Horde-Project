@@ -43,8 +43,6 @@ public class EnemyController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		Debug.Log(target);
-
 		float attackCount = EnemyController.playerAttackCount;
 
 		currentLookRadius = (type == EnemyType.Killer || attackCount == 0 || (attackCount == 1 && attacking))
