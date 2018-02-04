@@ -22,6 +22,8 @@ public class EnemyController : MonoBehaviour {
 	private EntityController entityController;
 	private NavMeshAgent agent;
 	private GameObject target;
+	private float targetDistance;
+	private Bounds bounds;
 	private bool attacking = false;
 	private bool atRange = false;
 	private float nextAttack = 0;
@@ -30,14 +32,14 @@ public class EnemyController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		target = buildingToAttack;
 		agent = GetComponent<NavMeshAgent> ();
+		SetTarget(buildingToAttack);
 		MoveToPoint(target.transform.position);
 		EnemyController.enemies.Add(transform);
 		currentLookRadius = lookRadius;
 		spawnTime = Time.time;
 		entityController = GetComponent<EntityController>();
-
+		bounds = GetComponent<Collider>().bounds;
 	}
 	
 	// Update is called once per frame
@@ -51,12 +53,16 @@ public class EnemyController : MonoBehaviour {
 
 		if (Time.time > spawnTime + 0.5f) {
 			UpdateTarget();
+			targetDistance = TargetDistance();
 		}
 
-		if (attacking) {
-			Attack();
-		}
+		Attack();
+	}
 
+	float TargetDistance() {
+		RaycastHit hit;
+		Physics.Raycast(transform.position, GetTargetDirection(), out hit);
+		return hit.distance;
 	}
 
 	void UpdateTarget() {
@@ -65,47 +71,43 @@ public class EnemyController : MonoBehaviour {
 		bool minCnt;
 
 		if (type == EnemyType.Destructer) {
-			minCnt = (attacking || EnemyController.playerAttackCount <= 2);
+			minCnt = (atRange || EnemyController.playerAttackCount <= 2);
 		} else {
-			minCnt = (attacking || EnemyController.playerAttackCount <= 5);
+			minCnt = (atRange || EnemyController.playerAttackCount <= 5);
 		}
 	
 		if (playerDistance <= currentLookRadius && minCnt) {
 			if (target != player) {
-				attacking = true;
 				EnemyController.playerAttackCount++;
 			}
 			SetTarget(player);
 		} else if (target == player) {
-			attacking = false;
 			SetTarget(buildingToAttack);
 			EnemyController.playerAttackCount--;
 		}
 
-		if (Vector3.Distance(target.transform.position, transform.position) <= attackRadius) {
+		if (targetDistance <= attackRadius) {
 			atRange = true;
 		} else {
 			atRange = false;
 		}
 		
 		if (agent.velocity.magnitude < 0.2f) {
-			if (target == buildingToAttack && !attacking) {
-				RaycastHit hit;
-				Physics.Raycast(transform.position, GetTargetDirection(), out hit, Mathf.Infinity, buildingLayer);
-				if (hit.transform != null && "Building" == hit.transform.gameObject.tag) {
-					attacking = true;
-					target = hit.transform.gameObject;
-				}
-			}
+			FaceTarget();
 		}
 	}
 
 	void Attack() {
 		if (atRange && Time.time > nextAttack) {
-			EntityController otherEntityController = target.GetComponent<EntityController>();
 			entityController.Attack();
 			nextAttack = Time.time + attackCooldown;
 		}
+	}
+
+	void FaceTarget() {
+		Vector3 direction = (target.transform.position - transform.position).normalized;
+		Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
+		transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
 	}
 
 	void MoveToPoint (Vector3 point) {
@@ -115,6 +117,12 @@ public class EnemyController : MonoBehaviour {
 	void SetTarget(GameObject newTarget) {
 		target = newTarget;
 		MoveToPoint(newTarget.transform.position);
+
+		if (target == buildingToAttack) {
+			agent.stoppingDistance = 0.9f;
+		} else {
+			agent.stoppingDistance = 0.4f;
+		}
 	}
 
 	Vector3 GetTargetDirection() {
@@ -130,11 +138,5 @@ public class EnemyController : MonoBehaviour {
 
 	public void SetType(EnemyType _type) {
 		type = _type;
-	}
-
-	void OnDestroy() {
-		// if (target == player) {
-		// 	EnemyController.playerAttackCount--;
-		// }
 	}
 }
