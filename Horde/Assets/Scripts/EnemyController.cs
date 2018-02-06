@@ -59,6 +59,8 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void UpdateTarget() {
+		Debug.Log(target);
+		if (target == null) SetTarget(buildingToAttack);
 		float playerDistance = Vector3.Distance(player.transform.position, transform.position);
 
 		bool minCnt;
@@ -86,6 +88,11 @@ public class EnemyController : MonoBehaviour {
 		}
 		
 		if (agent.velocity.magnitude < 0.2f) {
+			if (target == buildingToAttack) {
+				RaycastHit hit;
+				Physics.Raycast(transform.position, GetTargetDirection(), out hit);
+				if (hit.transform.name != "BuildingToDefend") SetTarget(hit.transform.gameObject);
+			}
 			FaceTarget();
 		}
 	}
