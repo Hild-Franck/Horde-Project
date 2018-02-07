@@ -6,9 +6,9 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour {
 
 	public enum EnemyType { Destructer, Killer };
-	public static List<Transform> enemies = new List<Transform>();
-
+	
 	public static int playerAttackCount = 0;
+	public static int enemyCount;
 
 	public GameObject buildingToAttack;
 	public GameObject player;
@@ -34,7 +34,6 @@ public class EnemyController : MonoBehaviour {
 		agent = GetComponent<NavMeshAgent> ();
 		SetTarget(buildingToAttack.transform);
 		MoveToPoint(target.position);
-		EnemyController.enemies.Add(transform);
 		spawnTime = Time.time;
 		entityController = GetComponent<EntityController>();
 		bounds = GetComponent<Collider>().bounds;
@@ -157,5 +156,9 @@ public class EnemyController : MonoBehaviour {
 
 	public void SetType(EnemyType _type) {
 		type = _type;
+	}
+
+	void OnDestroy() {
+		enemyCount--;
 	}
 }

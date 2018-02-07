@@ -13,6 +13,8 @@ public class SpawnController : MonoBehaviour {
 	public GameObject player;
 	public float spawnWait = 5f;
 
+	public int waveCount = 1;
+
 	void Awake() {
 		if (instance == null) {
 			instance = this;
@@ -26,7 +28,8 @@ public class SpawnController : MonoBehaviour {
 	}
 
 	IEnumerator SpawnWave () {
-		for (int i = 0; i < hazardCount; i++) {
+		EnemyController.enemyCount = hazardCount * waveCount;
+		for (int i = 0; i < hazardCount * waveCount; i++) {
 			GameObject enemyInstance;
 			if (i < hazardCount/2) {
 				enemyInstance = Instantiate (killerEnemy, transform.position, Quaternion.identity);
@@ -37,6 +40,6 @@ public class SpawnController : MonoBehaviour {
 			enemyInstance.GetComponent<EnemyController>().player = player;
 			yield return new WaitForSeconds (spawnWait);
 		}
-		hazardCount *= 2;
+		waveCount++;
 	}
 }

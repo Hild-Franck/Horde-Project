@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour {
 	public Camera RTSCamera;
 	public Camera FPSCamera;
 
+	private bool FPSModeOn = false;
+
 	void Awake() {
 		if (instance == null) {
 			instance = this;
@@ -27,7 +29,7 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	void Update () {
-		if (Input.GetButtonDown("SwitchMode")) {
+		if (Input.GetButtonDown("SwitchMode") && !FPSModeOn) {
 			Cursor.lockState = CursorLockMode.Locked;
 			player.SetActive(true);
 			RTS.SetActive(false);
@@ -37,12 +39,18 @@ public class GameManager : MonoBehaviour {
 
 			GridOverlay.instance.removeGhost();
 			SpawnController.instance.StartWave();
+			FPSModeOn = true;
 
 		}
 
 		if (Input.GetButtonDown("Escape")) {
 			UnityEditor.EditorApplication.isPlaying = false;
 			Application.Quit();
+		}
+
+		Debug.Log(EnemyController.enemyCount);
+		if (FPSModeOn && EnemyController.enemyCount == 0) {
+			SpawnController.instance.StartWave();
 		}
 	}
 }
