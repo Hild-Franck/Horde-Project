@@ -1262,6 +1262,7 @@ MonoBehaviour:
   maxWalls: 25
   currentBuildings: 0
   currentWalls: 0
+  playerController: {fileID: 455407266}
 --- !u!4 &898407831
 Transform:
   m_ObjectHideFlags: 0

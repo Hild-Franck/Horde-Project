@@ -10,6 +10,7 @@ public class BuildingController : MonoBehaviour {
 	public int maxWalls = 25;
 	public int currentBuildings = 0;
 	public int currentWalls = 0;
+	public EntityController playerController;
 
 	private List<Transform> buildings = new List<Transform>();
 
@@ -24,6 +25,7 @@ public class BuildingController : MonoBehaviour {
 	public void AddBuilding(GameObject building, GameObject buildingOrigin) {
 		currentWalls++;
 		if (buildingOrigin.name == "Building") {
+			playerController.health += 5;
 			buildings.Add(building.transform);
 			currentBuildings++;
 		}
@@ -31,6 +33,9 @@ public class BuildingController : MonoBehaviour {
 
 	public void RemoveBuilding(GameObject building) {
 		currentBuildings--;
+		currentWalls--;
+		playerController.startHealth -= 5;
+		playerController.health = Mathf.Clamp(playerController.health, 0, playerController.startHealth);
 		buildings.Remove(building.transform);
 	}
 
