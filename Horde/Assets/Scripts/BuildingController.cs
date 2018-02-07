@@ -11,6 +11,8 @@ public class BuildingController : MonoBehaviour {
 	public int currentBuildings = 0;
 	public int currentWalls = 0;
 
+	private List<Transform> buildings = new List<Transform>();
+
 	void Awake() {
 		if (instance == null) {
 			instance = this;
@@ -19,15 +21,26 @@ public class BuildingController : MonoBehaviour {
 		}
 	}
 
-	public void AddBuilding(GameObject building) {
+	public void AddBuilding(GameObject building, GameObject buildingOrigin) {
 		currentWalls++;
-		if (building.name == "Building")
+		if (buildingOrigin.name == "Building") {
+			buildings.Add(building.transform);
 			currentBuildings++;
+		}
+	}
+
+	public void RemoveBuilding(GameObject building) {
+		currentBuildings--;
+		buildings.Remove(building.transform);
 	}
 
 	public bool Check(GameObject building) {
 		if (building.name == "Building")
 			return (currentWalls < maxWalls && currentBuildings < maxBuildings);
 		return (currentWalls < maxWalls);
+	}
+
+	public List<Transform> GetBuildings() {
+		return buildings;
 	}
 }

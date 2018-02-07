@@ -11,9 +11,8 @@ public class AddBuilding : MonoBehaviour {
 
 	void Update () {
 		if (Input.GetMouseButtonDown(0) && checkPosition() && BuildingController.instance.Check(building) && gameObject.activeSelf) {
-			Debug.Log("Here");
-			Instantiate(building, transform.position, transform.rotation);
-			BuildingController.instance.AddBuilding(building);
+			GameObject newBuilding = Instantiate(building, transform.position, transform.rotation);
+			BuildingController.instance.AddBuilding(newBuilding, building);
 		}
 
 		if (Input.GetButtonDown("Rotate")) {

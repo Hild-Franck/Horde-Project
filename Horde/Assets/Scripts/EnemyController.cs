@@ -17,10 +17,11 @@ public class EnemyController : MonoBehaviour {
 	public LayerMask buildingLayer;
 	public float attackCooldown = 2f;
 	public EnemyType type = EnemyType.Killer;
+	public bool targetBuildings;
 	
 	private EntityController entityController;
 	private NavMeshAgent agent;
-	private GameObject target;
+	private Transform target;
 	private float targetDistance;
 	private Bounds bounds;
 	private bool attacking = false;
@@ -31,8 +32,8 @@ public class EnemyController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		agent = GetComponent<NavMeshAgent> ();
-		SetTarget(buildingToAttack);
-		MoveToPoint(target.transform.position);
+		SetTarget(buildingToAttack.transform);
+		MoveToPoint(target.position);
 		EnemyController.enemies.Add(transform);
 		spawnTime = Time.time;
 		entityController = GetComponent<EntityController>();
@@ -58,27 +59,51 @@ public class EnemyController : MonoBehaviour {
 		return hit.distance;
 	}
 
+	Transform GetNearestBuilding(List<Transform> buildings) {
+		Transform nearestBuilding = null;
+		Vector3 position = transform.position;
+		float minDistance = lookRadius + 2f;
+
+
+		buildings.ForEach(delegate(Transform building){
+			float distance = Vector3.Distance(position, building.position);
+			if (distance < minDistance) {
+				nearestBuilding = building;
+				minDistance = distance;
+			}
+		});
+
+		return nearestBuilding;
+	}
+
 	void UpdateTarget() {
-		Debug.Log(target);
-		if (target == null) SetTarget(buildingToAttack);
+		if (target == null) SetTarget(buildingToAttack.transform);
+
+
 		float playerDistance = Vector3.Distance(player.transform.position, transform.position);
 
 		bool minCnt;
 
 		if (type == EnemyType.Destructer) {
-			minCnt = (atRange || EnemyController.playerAttackCount <= 2);
+			minCnt = (target == player.transform || EnemyController.playerAttackCount < 2);
 		} else {
-			minCnt = (atRange || EnemyController.playerAttackCount <= 5);
+			minCnt = (target == player.transform || EnemyController.playerAttackCount < 5);
 		}
+
 	
 		if (playerDistance <= lookRadius && minCnt) {
-			if (target != player) {
+			if (target != player.transform) {
 				EnemyController.playerAttackCount++;
 			}
-			SetTarget(player);
-		} else if (target == player) {
-			SetTarget(buildingToAttack);
+			SetTarget(player.transform);
+		} else if (target == player.transform) {
+			SetTarget(buildingToAttack.transform);
 			EnemyController.playerAttackCount--;
+		}
+		
+		if (targetBuildings && target != player.transform) {
+			Transform nearestBuilding = GetNearestBuilding(BuildingController.instance.GetBuildings());
+			if (nearestBuilding != null) SetTarget(nearestBuilding);
 		}
 
 		if (targetDistance <= attackRadius) {
@@ -88,10 +113,10 @@ public class EnemyController : MonoBehaviour {
 		}
 		
 		if (agent.velocity.magnitude < 0.2f) {
-			if (target == buildingToAttack) {
+			if (target == buildingToAttack.transform) {
 				RaycastHit hit;
 				Physics.Raycast(transform.position, GetTargetDirection(), out hit);
-				if (hit.transform.name != "BuildingToDefend") SetTarget(hit.transform.gameObject);
+				if (hit.transform != null && hit.transform.name != "BuildingToDefend") SetTarget(hit.transform);
 			}
 			FaceTarget();
 		}
@@ -105,7 +130,7 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void FaceTarget() {
-		Vector3 direction = (target.transform.position - transform.position).normalized;
+		Vector3 direction = (target.position - transform.position).normalized;
 		Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
 		transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
 	}
@@ -114,19 +139,13 @@ public class EnemyController : MonoBehaviour {
 		agent.SetDestination(point);
 	}
 
-	void SetTarget(GameObject newTarget) {
+	void SetTarget(Transform newTarget) {
 		target = newTarget;
 		MoveToPoint(newTarget.transform.position);
-
-		if (target == buildingToAttack) {
-			agent.stoppingDistance = 0.9f;
-		} else {
-			agent.stoppingDistance = 0.4f;
-		}
 	}
 
 	Vector3 GetTargetDirection() {
-		return (target.transform.position - transform.position);
+		return (target.position - transform.position);
 	}
 
 	void OnDrawGizmos () {

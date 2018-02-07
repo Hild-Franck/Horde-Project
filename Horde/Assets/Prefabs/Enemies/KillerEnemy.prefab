@@ -503,13 +503,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingToAttack: {fileID: 0}
   player: {fileID: 0}
-  lookRadius: 1.5
+  lookRadius: 7
   attackRadius: 0.4
   buildingLayer:
     serializedVersion: 2
     m_Bits: 512
   attackCooldown: 1
   type: 1
+  targetBuildings: 1
 --- !u!114 &114955657303524208
 MonoBehaviour:
   m_ObjectHideFlags: 1

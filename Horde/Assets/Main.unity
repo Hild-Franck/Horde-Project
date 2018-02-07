@@ -1194,7 +1194,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.05, y: 0.05, z: 0.05}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
@@ -1450,7 +1450,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -340, y: 170}
+  m_AnchoredPosition: {x: -340, y: 160}
   m_SizeDelta: {x: 160, y: 144}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1043316090

@@ -8,7 +8,6 @@ public class SwordController : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col) {
 		string tag = col.gameObject.tag;
-		Debug.Log("Just hitting a : " + tag);
 		if ((tag == "Enemy" || tag == "Building" || tag == "Player") && entityController.CheckAttack()) {
 			(col.gameObject.GetComponent<EntityController>()).TakeDamage(1);
 		}
