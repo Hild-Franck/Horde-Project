@@ -503,7 +503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingToAttack: {fileID: 0}
   player: {fileID: 0}
-  lookRadius: 7
+  lookRadius: 5
   attackRadius: 0.4
   buildingLayer:
     serializedVersion: 2
