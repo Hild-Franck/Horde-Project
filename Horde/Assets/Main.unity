@@ -1828,6 +1828,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   building: {fileID: 1940343902772822, guid: 28fa9b6fbc0e64f55aa5d7a137b9bb25, type: 2}
+  buildingToDefend: {fileID: 889756391}
+  green: {r: 0, g: 0.28676468, b: 0, a: 0.503}
+  constructionDistance: 7
 --- !u!65 &1391856417
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1838,7 +1841,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.9, y: 0.9, z: 0.9}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1391856418
 Rigidbody:
@@ -2711,7 +2714,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.9, y: 0.9, z: 0.9}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1977447535
 MeshFilter:
@@ -2747,6 +2750,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   building: {fileID: 1177720394509272, guid: 87fb338ef665eb24fa5ce62e3cdec8ee, type: 2}
+  buildingToDefend: {fileID: 889756391}
+  green: {r: 0, g: 0.28676468, b: 0, a: 0.503}
+  constructionDistance: 7
 --- !u!54 &1977447538
 Rigidbody:
   m_ObjectHideFlags: 0

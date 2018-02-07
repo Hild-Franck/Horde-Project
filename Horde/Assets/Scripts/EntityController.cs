@@ -17,11 +17,16 @@ public class EntityController : MonoBehaviour {
 	public Image healthBar;
 
 	private Material material;
+	private bool canFlash = false;
 
 	void Start() {
 		GameObject graphic = transform.Find("Graphic").gameObject;
-		GameObject mesh = graphic.transform.Find("Mesh").gameObject;
-		material = mesh.GetComponent<Renderer>().material;
+		Transform meshComponent = graphic.transform.Find("Mesh");
+		if (meshComponent != null) {
+			canFlash = true;
+			material = meshComponent.gameObject.GetComponent<Renderer>().material;
+		}
+
 		health = startHealth;
 	}
 
@@ -40,7 +45,7 @@ public class EntityController : MonoBehaviour {
 
 	public float TakeDamage(float damage) {
 		if (!isGuarding) {
-			StartCoroutine(flashWhite());
+			if (canFlash) StartCoroutine(flashWhite());
 			health -= damage;
 			healthBar.fillAmount = health / startHealth;
 			return health;
