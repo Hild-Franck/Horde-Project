@@ -8,3 +8,8 @@ install:
 - ./Scripts/install.sh
 script:
 - ./Scripts/build.sh
+
+branches:
+  only:
+    - master
+    - dev
