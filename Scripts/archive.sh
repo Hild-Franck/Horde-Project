@@ -6,6 +6,6 @@
 project="horde-project"
 build="$project-$TRAVIS_TAG"
 
-mkdir Archives
+mkdir Builds
 
-zip -r "Archives/$build-windows-build.zip" windows
+zip -r "Builds/$build-windows-build.zip" "Out\windows"

@@ -8,7 +8,7 @@ script:
 - "./Scripts/build.sh"
 before_deploy:
   - "./Scripts/archive.sh"
-  - cd Archives
+  - cd Builds
 deploy:
   provider: s3
   access_key_id: AKIAIS2WIEJF6PIHXHTQ
