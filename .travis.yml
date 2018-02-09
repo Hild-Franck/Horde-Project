@@ -17,6 +17,7 @@ deploy:
   skip_cleanup: true
   on:
     repo: Hild-Franck/Horde-Project
+    tags: true
 
 branches:
   only:
