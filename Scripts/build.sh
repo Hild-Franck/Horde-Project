@@ -6,25 +6,25 @@
 project="horde-project"
 build="$project-$TRAVIS_TAG"
 
-echo "Attempting to build $project for Windows"
-/Applications/Unity/Unity.app/Contents/MacOS/Unity \
-  -batchmode \
-  -nographics \
-  -silent-crashes \
-  -logFile $(pwd)/unity.log \
-  -projectPath $(pwd) \
-  -buildWindowsPlayer "$(pwd)/Deployment/Builds/windows/$build.exe" \
-  -quit
-
-# echo "Attempting to build $project for OS X"
+# echo "Attempting to build $project for Windows"
 # /Applications/Unity/Unity.app/Contents/MacOS/Unity \
 #   -batchmode \
 #   -nographics \
 #   -silent-crashes \
 #   -logFile $(pwd)/unity.log \
 #   -projectPath $(pwd) \
-#   -buildOSXUniversalPlayer "$(pwd)/Deployment/Builds/osx/$build.app" \
+#   -buildWindowsPlayer "$(pwd)/Deployment/Builds/windows/$build.exe" \
 #   -quit
+
+echo "Attempting to build $project for OS X"
+/Applications/Unity/Unity.app/Contents/MacOS/Unity \
+  -batchmode \
+  -nographics \
+  -silent-crashes \
+  -logFile $(pwd)/unity.log \
+  -projectPath $(pwd) \
+  -buildOSXUniversalPlayer "$(pwd)/Deployment/Builds/osx/$build.app" \
+  -quit
 
 # echo "Attempting to build $project for Linux"
 # /Applications/Unity/Unity.app/Contents/MacOS/Unity \
