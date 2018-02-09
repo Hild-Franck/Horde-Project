@@ -4,7 +4,7 @@
 
 # Change this the name of your project. This will be the name of the final executables as well.
 project="horde-project"
-build="$project-$TRAVIS_BRANCH-$TRAVIS_TAG"
+build="$project-$TRAVIS_TAG"
 
 echo "Attempting to build $project for Windows"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
@@ -16,25 +16,26 @@ echo "Attempting to build $project for Windows"
   -buildWindowsPlayer "$(pwd)/Deployment/Builds/windows/$build.exe" \
   -quit
 
-echo "Attempting to build $project for OS X"
-/Applications/Unity/Unity.app/Contents/MacOS/Unity \
-  -batchmode \
-  -nographics \
-  -silent-crashes \
-  -logFile $(pwd)/unity.log \
-  -projectPath $(pwd) \
-  -buildOSXUniversalPlayer "$(pwd)/Deployment/Builds/osx/$build.app" \
-  -quit
+# echo "Attempting to build $project for OS X"
+# /Applications/Unity/Unity.app/Contents/MacOS/Unity \
+#   -batchmode \
+#   -nographics \
+#   -silent-crashes \
+#   -logFile $(pwd)/unity.log \
+#   -projectPath $(pwd) \
+#   -buildOSXUniversalPlayer "$(pwd)/Deployment/Builds/osx/$build.app" \
+#   -quit
 
-echo "Attempting to build $project for Linux"
-/Applications/Unity/Unity.app/Contents/MacOS/Unity \
-  -batchmode \
-  -nographics \
-  -silent-crashes \
-  -logFile $(pwd)/unity.log \
-  -projectPath $(pwd) \
-  -buildLinuxUniversalPlayer "$(pwd)/Deployment/Builds/linux/$build" \
-  -quit
+# echo "Attempting to build $project for Linux"
+# /Applications/Unity/Unity.app/Contents/MacOS/Unity \
+#   -batchmode \
+#   -nographics \
+#   -silent-crashes \
+#   -logFile $(pwd)/unity.log \
+#   -projectPath $(pwd) \
+#   -buildLinuxUniversalPlayer "$(pwd)/Deployment/Builds/linux/$build" \
+#   -quit
 
-echo 'Logs from build'
+echo '### Logs from build ###'
 cat $(pwd)/unity.log
+echo '#######################'
