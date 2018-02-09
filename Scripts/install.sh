@@ -10,8 +10,8 @@ curl -o Unity.pkg http://netstorage.unity3d.com/unity/e87ab445ead0/MacEditorInst
 echo 'Installing Unity.pkg'
 sudo installer -dumplog -package Unity.pkg -target /
 
-echo 'Downloading from http://netstorage.unity3d.com/unity/MacEditorTargetInstaller/UnitySetup-Mac-Support-for-Editor-5.3.2f1.pkg: '
-curl -o MacSupport.pkg http://netstorage.unity3d.com/unity/MacEditorTargetInstaller/UnitySetup-Mac-Support-for-Editor-5.3.2f1.pkg
+echo 'Downloading from http://netstorage.unity3d.com/unity/e87ab445ead0/MacEditorTargetInstaller/UnitySetup-Mac-Support-for-Editor-5.3.2f1.pkg: '
+curl -o MacSupport.pkg http://netstorage.unity3d.com/unity/e87ab445ead0/MacEditorTargetInstaller/UnitySetup-Mac-Support-for-Editor-5.3.2f1.pkg
 
 echo 'Installing MacSupport.pkg'
 sudo installer -dumplog -package MacSupport.pkg -target /
