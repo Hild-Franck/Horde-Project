@@ -7,6 +7,7 @@ install:
 script:
 - "./Scripts/build.sh"
 before_deploy:
+  - ls -la
   - cd Deployment
 deploy:
   provider: s3
@@ -21,6 +22,4 @@ deploy:
 
 branches:
   only:
-  - master
-  - dev
   - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
