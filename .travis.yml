@@ -1,15 +1,20 @@
-# Example Travis config. See the entire example: https://github.com/JonathanPorta/ci-build
-
 language: objective-c
 osx_image: xcode61
 rvm:
 - 2.1.2
 install:
-- ./Scripts/install.sh
+- "./Scripts/install.sh"
 script:
-- ./Scripts/build.sh
-
+- "./Scripts/build.sh"
 branches:
   only:
-    - master
-    - dev
+  - master
+  - dev
+deploy:
+  provider: s3
+  access_key_id: AKIAIS2WIEJF6PIHXHTQ
+  secret_access_key:
+    secure: ntPcrG7FnO+P1y6zEqOFcFgxQzMt/jSIgRo7Rv2IihPCNNPDa1Nc1ZwCnnVm9KkP9ec5aX2EF8vsfb/FR767XP6HLSVhSnr0wBjuEROK3fEhDhx658Sb4h0csHtclBOoNTfnj82gTg+YPYBO+wzJUNJ1kMvU7x0d6zmKie7CnwMNCpvUXQxHWo7EZ1iLLxwazcnqd+duN4qxWAW5z6bSUh/Oadsg1ea6s90XxOm1hCKMOEkkGH36CeRhFyzLXu6kdrxSelBfHhp/ewf6ens7FImTYivGzv4e/b6JZZTY4ByOkWiFcGSkxkaftHrESk3/5YKA50VRn/TYWAiHo9Vr5qzVR32PJoQy6QPKKcfyT5InF6cHHI1xF/dcwwEG58d2zwZwiIrnRUeGWkdBTKT/fWatkViz7He8w8vMpilw/SlSjnoeN608gvmMW5gxpw9KqBOZwb2HGtpYPJ5H4kVYxrj1DJstds7F6Bcfm+z6gHu2zIjiM0nTBOZaY1zvrLo6Ue7hMupb8FwTg4Zv1oOkvyfvILERttJUIVeyhzFSD6jIRWgtgG5j+hFo9BLozXpRtRugv/T6+smhFGfpRBCIhs33vB7l0jOIuFgpq7yIJLxKUP4On1uxNiA3pB5A8vHiO/xvw9ryVpqJU+t6pQxgf0Ay7DtW+dQB1ibszMb4C6k=
+  bucket: knarfux-game-builds
+  on:
+    repo: Hild-Franck/Horde-Project

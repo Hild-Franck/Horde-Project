@@ -4,6 +4,7 @@
 
 # Change this the name of your project. This will be the name of the final executables as well.
 project="horde-project"
+build="$project-$TRAVIS_BRANCH-$TRAVIS_COMMIT"
 
 echo "Attempting to build $project for Windows"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
@@ -12,7 +13,7 @@ echo "Attempting to build $project for Windows"
   -silent-crashes \
   -logFile $(pwd)/unity.log \
   -projectPath $(pwd) \
-  -buildWindowsPlayer "$(pwd)/Build/windows/$project.exe" \
+  -buildWindowsPlayer "$(pwd)/Build/windows/$build.exe" \
   -quit
 
 echo "Attempting to build $project for OS X"
@@ -22,7 +23,7 @@ echo "Attempting to build $project for OS X"
   -silent-crashes \
   -logFile $(pwd)/unity.log \
   -projectPath $(pwd) \
-  -buildOSXUniversalPlayer "$(pwd)/Build/osx/$project.app" \
+  -buildOSXUniversalPlayer "$(pwd)/Build/osx/$build.app" \
   -quit
 
 echo "Attempting to build $project for Linux"
@@ -32,7 +33,7 @@ echo "Attempting to build $project for Linux"
   -silent-crashes \
   -logFile $(pwd)/unity.log \
   -projectPath $(pwd) \
-  -buildLinuxUniversalPlayer "$(pwd)/Build/linux/$project.exe" \
+  -buildLinuxUniversalPlayer "$(pwd)/Build/linux/$build.exe" \
   -quit
 
 echo 'Logs from build'
