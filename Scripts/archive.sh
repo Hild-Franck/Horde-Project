@@ -8,4 +8,4 @@ build="$project-$TRAVIS_TAG"
 
 mkdir Builds
 
-zip -r "Builds/$build-windows-build.zip" "Out\windows"
+zip -r "Builds/$build-windows-build.zip" "Out/windows"
