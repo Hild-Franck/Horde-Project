@@ -7,8 +7,8 @@ install:
 script:
 - "./Scripts/build.sh"
 before_deploy:
-  - ls -la
-  - cd Deployment
+  - "./Scripts/archive.sh"
+  - cd Archives
 deploy:
   provider: s3
   access_key_id: AKIAIS2WIEJF6PIHXHTQ
