@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject player;
 	public GameObject RTS;
+	public GameObject playerSpawn;
 
 	public Camera RTSCamera;
 	public Camera FPSCamera;
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour {
 			GridOverlay.instance.removeGhost();
 			SpawnController.instance.StartWave();
 			FPSModeOn = true;
+			Destroy(playerSpawn);
 
 		}
 
