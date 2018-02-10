@@ -48,7 +48,6 @@ public class GameManager : MonoBehaviour {
 			Application.Quit();
 		}
 
-		Debug.Log(EnemyController.enemyCount);
 		if (FPSModeOn && EnemyController.enemyCount == 0) {
 			SpawnController.instance.StartWave();
 		}
