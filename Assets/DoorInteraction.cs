@@ -14,7 +14,6 @@ public class DoorInteraction : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player= GameObject.Find("Player");
 		interactionCenter = transform.position;
 		openPosition = new Vector3(transform.position.x, 2.14f, transform.position.z);
 		closePosition = new Vector3(transform.position.x, 0.5f, transform.position.z);
@@ -22,10 +21,14 @@ public class DoorInteraction : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float playerDistance = Vector3.Distance(player.transform.position, interactionCenter);
+		if (player != null) {
+			float playerDistance = Vector3.Distance(player.transform.position, interactionCenter);
 
-		if (playerDistance <= interactionRadius && Input.GetButtonDown("Interact")) {
-			Interact();
+			if (playerDistance <= interactionRadius && Input.GetButtonDown("Interact")) {
+				Interact();
+			}
+		} else {
+			player = GameObject.Find("Player");
 		}
 
 	}

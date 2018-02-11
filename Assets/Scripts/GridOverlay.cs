@@ -7,6 +7,7 @@ public class GridOverlay : MonoBehaviour {
  
     public GameObject map;
     public Camera camera;
+    public GameObject[] buildingGhosts;
     public GameObject buildingGhost;
     public GameObject wallGhost;
 
@@ -30,6 +31,7 @@ public class GridOverlay : MonoBehaviour {
 
     private Vector3 hitPoint;
     private bool cursorOnMap = false;
+    private int index = 0;
 
     private Material lineMaterial;
 
@@ -50,8 +52,8 @@ public class GridOverlay : MonoBehaviour {
 	}
     
     void Start () {
-        ghost = buildingGhost;
-        wallGhost.SetActive(false);
+        ghost = buildingGhosts[0];
+        ghost.SetActive(true);
 
 		gridSizeX = (int) map.transform.localScale.x;
 		gridSizeZ = (int) map.transform.localScale.y;
@@ -62,15 +64,7 @@ public class GridOverlay : MonoBehaviour {
 
     void Update() {
         if (Input.GetButtonDown("Switch")) {
-            if (ghost == buildingGhost) {
-                ghost = wallGhost;
-                buildingGhost.SetActive(false);
-                wallGhost.SetActive(true);
-            } else {
-                ghost = buildingGhost;
-                wallGhost.SetActive(false);
-                buildingGhost.SetActive(true);
-            }
+            Switch();
         }
 
 		RaycastHit hit;
@@ -84,6 +78,13 @@ public class GridOverlay : MonoBehaviour {
             cursorOnMap = false;
         }
 	}
+
+    void Switch() {
+        ghost.SetActive(false);
+        if (++index >= buildingGhosts.Length) index = 0;
+        ghost = buildingGhosts[index];
+        ghost.SetActive(true);
+    }
  
      void CreateLineMaterial() {
         if (!lineMaterial) {
