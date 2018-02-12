@@ -131,7 +131,7 @@ public class EnemyController : MonoBehaviour {
 	void FaceTarget() {
 		Vector3 direction = (target.position - transform.position).normalized;
 		Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
-		transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 12f);
+		transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 30f);
 	}
 
 	void MoveToPoint (Vector3 point) {
