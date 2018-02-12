@@ -10,6 +10,7 @@ public class GridOverlay : MonoBehaviour {
     public GameObject[] buildingGhosts;
     public GameObject buildingGhost;
     public GameObject wallGhost;
+    public string currentBuilding;
 
     public LayerMask mapLayer;
 
@@ -26,8 +27,8 @@ public class GridOverlay : MonoBehaviour {
     public float largeStep = 2;
 
     public float startX;
-    private float startY = 0.01f;
     public float startZ;
+    private float startY = 0.01f;
 
     private Vector3 hitPoint;
     private bool cursorOnMap = false;
@@ -54,6 +55,7 @@ public class GridOverlay : MonoBehaviour {
     void Start () {
         ghost = buildingGhosts[0];
         ghost.SetActive(true);
+        currentBuilding = ghost.name;
 
 		gridSizeX = (int) map.transform.localScale.x;
 		gridSizeZ = (int) map.transform.localScale.y;
@@ -84,6 +86,7 @@ public class GridOverlay : MonoBehaviour {
         if (++index >= buildingGhosts.Length) index = 0;
         ghost = buildingGhosts[index];
         ghost.SetActive(true);
+        currentBuilding = ghost.name;
     }
  
      void CreateLineMaterial() {

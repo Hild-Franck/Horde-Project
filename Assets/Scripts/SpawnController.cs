@@ -29,9 +29,9 @@ public class SpawnController : MonoBehaviour {
 
 	IEnumerator SpawnWave () {
 		EnemyController.enemyCount = hazardCount * waveCount;
-		for (int i = 0; i < hazardCount * waveCount; i++) {
+		for (int i = 0; i < hazardCount + (5 * waveCount); i++) {
 			GameObject enemyInstance;
-			if (i < hazardCount/2) {
+			if (i % 2 == 0) {
 				enemyInstance = Instantiate (killerEnemy, transform.position, Quaternion.identity);
 			} else {
 				enemyInstance = Instantiate (destructerEnemy, transform.position, Quaternion.identity);

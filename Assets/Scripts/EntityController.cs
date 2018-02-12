@@ -41,6 +41,11 @@ public class EntityController : MonoBehaviour {
 		if (isAttacking && !swordAnimation.GetBool("Attacking")) {
 			isAttacking = false;
 		}
+		if (isGuarding && !swordAnimation.GetBool("Guarding")) {
+			isGuarding = false;
+		}
+
+
 	}
 
 	public float TakeDamage(float damage) {
@@ -62,11 +67,6 @@ public class EntityController : MonoBehaviour {
 	public void Guard() {
 		swordAnimation.SetTrigger("Guarding");
 		isGuarding = true;
-	}
-
-	public void Unguard() {
-		swordAnimation.SetBool("Guarding", false);
-		isGuarding = false;
 	}
 
 	public void Attack() {

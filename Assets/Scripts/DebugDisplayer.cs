@@ -25,6 +25,7 @@ public class DebugDisplayer : MonoBehaviour {
 		newText += "\ndashing: " + toStr(pC.isDashing) + "\nweapon: " + pC.weapon.name;
 		newText += "\nhouse: " + bC.currentBuildings + "/" + bC.maxBuildings;
 		newText += "\nbuildings: " + bC.currentWalls + "/" + bC.maxWalls;
+		newText += "\ncurrent building: " + GridOverlay.instance.currentBuilding;
 		newText += "\nattack count: " + EnemyController.playerAttackCount;
 		text.text = newText;
 	}

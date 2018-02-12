@@ -34,6 +34,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update () {
+		if (!entityController.isGuarding) {
+			speedModifier = 1f;
+		}
 		float _xMov = Input.GetAxisRaw("Horizontal");
 		float _zMov = Input.GetAxisRaw("Vertical");
 
@@ -69,12 +72,9 @@ public class PlayerController : MonoBehaviour {
 			entityController.Attack();
 		}
 
-		if (Input.GetButtonDown("Fire2") && !entityController.isGuarding) {
+		if (Input.GetButtonDown("Fire2") && !entityController.isGuarding && !entityController.isAttacking) {
 			entityController.Guard();
-			speedModifier = 0.6f;
-		} else if (Input.GetButtonUp("Fire2") && entityController.isGuarding){
-			entityController.Unguard();
-			speedModifier = 1f;
+			speedModifier = 0.5f;
 		}
 
 		if (Input.GetButtonDown("Switch")) {

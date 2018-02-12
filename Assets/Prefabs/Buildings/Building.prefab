@@ -277,8 +277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c89360e5d66a45447b4b91b7e77152b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 5
-  health: 5
+  startHealth: 15
+  health: 15
   swordAnimation: {fileID: 0}
   isGuarding: 0
   isAttacking: 0
