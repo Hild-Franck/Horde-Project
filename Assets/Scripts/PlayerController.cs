@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour {
 	private float nextDash;
 	private float smoothVelocity = 0.0f;
 	private float speedModifier = 1f;
+	private int dashDirection = -1;
 
 	void Start() {
 		motor = GetComponent<PlayerMotor>();
@@ -46,7 +47,7 @@ public class PlayerController : MonoBehaviour {
 		Vector3 _velocity = (_movHorizontal + _movVertical).normalized * speed * speedModifier;
 
 		if (isDashing) {
-			FPSCamera.fieldOfView = Mathf.SmoothDamp(FPSCamera.fieldOfView, 60, ref smoothVelocity, dashTime);
+			FPSCamera.fieldOfView = Mathf.SmoothDamp(FPSCamera.fieldOfView, 55 - (5 * dashDirection), ref smoothVelocity, dashTime);
 			_velocity = Dash(_velocity);
 		}
 
@@ -95,12 +96,18 @@ public class PlayerController : MonoBehaviour {
 
 		if(Input.GetButtonDown("Jump") && _zMov == -1.0f && !isDashing) {
 			isDashing = true;
+			dashDirection = -1;
+			nextDash = Time.time + dashTime;
+		}
 
+		if(Input.GetButtonDown("Jump") && _zMov == 1.0f && !isDashing) {
+			isDashing = true;
+			dashDirection = 1;
 			nextDash = Time.time + dashTime;
 		}
 	}
 
 	Vector3 Dash(Vector3 _velocity) {
-		return _velocity + transform.forward * -dashSpeed;
+		return _velocity + transform.forward * dashSpeed * dashDirection;
 	}
 }
