@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour {
 
@@ -18,6 +19,7 @@ public class EnemyController : MonoBehaviour {
 	public float attackCooldown = 2f;
 	public EnemyType type = EnemyType.Killer;
 	public bool targetBuildings;
+	public Image attackBar;
 	
 	private EntityController entityController;
 	private NavMeshAgent agent;
@@ -28,6 +30,7 @@ public class EnemyController : MonoBehaviour {
 	private bool atRange = false;
 	private float nextAttack = 0;
 	private float spawnTime;
+	private float attackTime;
 
 	// Use this for initialization
 	void Start () {
@@ -43,6 +46,17 @@ public class EnemyController : MonoBehaviour {
 	void Update () {
 
 		float attackCount = EnemyController.playerAttackCount;
+
+		if (entityController.swordAnimation.GetBool("Charging") && attackTime == 0f) {
+			attackTime = Time.time;
+		}
+
+		if (entityController.swordAnimation.GetBool("Charging")) {
+			attackBar.fillAmount = (Time.time - attackTime) / 1f;
+		} else {
+			attackBar.fillAmount = 0f;
+			attackTime = 0f;
+		}
 
 		if (Time.time > spawnTime + 0.5f) {
 			UpdateTarget();
