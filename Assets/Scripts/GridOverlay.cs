@@ -25,6 +25,7 @@ public class GridOverlay : MonoBehaviour {
 
     public float smallStep = 1;
     public float largeStep = 2;
+    public float gridSnap = 0.5f;
 
     public float startX;
     public float startZ;
@@ -132,18 +133,9 @@ public class GridOverlay : MonoBehaviour {
     }
 
     void DrawQuad() {
-        // GL.Begin(GL.QUADS);
-        // GL.Color(mainColor);
-        var x = Mathf.Floor(hitPoint.x);
-        // x = x - (x%largeStep)-smallStep;
-        var y = Mathf.Floor(hitPoint.z);
-        // y = y - (y%largeStep)-smallStep;
-        // GL.Vertex3(x, 0.01f, y);
-        // GL.Vertex3(x+1f, 0.01f, y);
-        // GL.Vertex3(x+1f, 0.01f, y+1f);
-        // GL.Vertex3(x, 0.01f, y+1f);
-        // GL.End();
-        ghost.transform.position = new Vector3(x+0.5f, 0.5f, y+0.5f);
+        var x = hitPoint.x - (hitPoint.x % (gridSnap*2));
+        var y = hitPoint.z - (hitPoint.z % (gridSnap*2));
+        ghost.transform.position = new Vector3(x, gridSnap, y);
     }
  
     void OnPostRender() {

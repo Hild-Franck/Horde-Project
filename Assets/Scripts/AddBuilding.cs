@@ -36,13 +36,13 @@ public class AddBuilding : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col) {
 		if (col.tag == "Building") {
-			haveCollided = CheckPosition(col.transform);
+			haveCollided = true;
 		}
 	}
 
 	void OnTriggerStay(Collider col) {
 		if (col.tag == "Building") {
-			haveCollided = CheckPosition(col.transform);
+			haveCollided = true;
 		}
 	}
 
