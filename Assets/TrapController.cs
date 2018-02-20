@@ -36,7 +36,7 @@ public class TrapController : MonoBehaviour {
 	void TriggerTrap () {
 		isActive = true;
 		lastTrigger = Time.time;
-		transform.position = new Vector3(transform.position.x, 0.31f, transform.position.z);
+		transform.position = new Vector3(transform.position.x, 0.555f, transform.position.z);
 
 		StartCoroutine(UntriggerTrap());
 	}

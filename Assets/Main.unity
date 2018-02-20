@@ -1332,7 +1332,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.9, y: 0.5, z: 0.9}
-  m_Center: {x: -0.5, y: -0.45, z: -0.5}
+  m_Center: {x: -0.5, y: -0.95, z: -0.5}
 --- !u!4 &592047381
 Transform:
   m_ObjectHideFlags: 0
@@ -1842,6 +1842,7 @@ MonoBehaviour:
   gold: 1000
   currentBuildings: 0
   currentWalls: 0
+  currentPeople: 0
   playerController: {fileID: 455407266}
 --- !u!4 &898407831
 Transform:
@@ -3379,7 +3380,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1653998533}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -0.45, z: -0.5}
+  m_LocalPosition: {x: -0.5, y: -0.95, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 695411610}

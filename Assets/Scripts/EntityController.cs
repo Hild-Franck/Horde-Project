@@ -32,7 +32,7 @@ public class EntityController : MonoBehaviour {
 	}
 
 	void Update () {
-		if (health == 0) {
+		if (health <= 0) {
 			if (gameObject.tag == "Enemy") {
 				EnemyController.playerAttackCount--;
 			}
@@ -88,7 +88,9 @@ public class EntityController : MonoBehaviour {
 		isHit = true;
 		Color color = material.color;
 		material.color = Color.white;
-		yield return new WaitForSeconds(0.1f);
+		canFlash = false;
+		yield return new WaitForSeconds(0.05f);
+		canFlash = true;
 		material.color = color;
 		isHit = false;
 	}
