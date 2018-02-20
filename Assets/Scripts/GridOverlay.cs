@@ -135,7 +135,7 @@ public class GridOverlay : MonoBehaviour {
     void DrawQuad() {
         var x = hitPoint.x - (hitPoint.x % (gridSnap*2));
         var y = hitPoint.z - (hitPoint.z % (gridSnap*2));
-        ghost.transform.position = new Vector3(x, gridSnap, y);
+        ghost.transform.position = new Vector3(x, 0.5f, y);
     }
  
     void OnPostRender() {
