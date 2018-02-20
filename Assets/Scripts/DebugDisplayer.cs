@@ -24,6 +24,7 @@ public class DebugDisplayer : MonoBehaviour {
 		string newText = "Health: " + eC.health;
 		newText += "\nGold: " + bC.gold;
 		newText += "\nCurrent building: " + GridOverlay.instance.currentBuilding;
+		newText += "\nCurrent people: " + bC.currentPeople;
 		newText += "\nCombo: " + eC.GetComboCount();
 		text.text = newText;
 	}

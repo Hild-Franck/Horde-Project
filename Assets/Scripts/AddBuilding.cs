@@ -24,7 +24,7 @@ public class AddBuilding : MonoBehaviour {
 		currentPosition = transform.position;
 		float distance = Vector3.Distance(transform.position, buildingToDefend.position);
 		bool inRange = (distance < constructionDistance);
-		if (!haveCollided && BuildingController.instance.Check(cost) && gameObject.activeSelf && inRange) {
+		if (!haveCollided && BuildingController.instance.Check(cost, building) && gameObject.activeSelf && inRange) {
 			ChangeColor(green);
 			if (Input.GetMouseButtonDown(0)) {
 				GameObject newBuilding = Instantiate(building, transform.position, transform.rotation);

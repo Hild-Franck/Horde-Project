@@ -10,6 +10,7 @@ public class BuildingController : MonoBehaviour {
 	public int gold = 1000;
 	public int currentBuildings = 0;
 	public int currentWalls = 0;
+	public int currentPeople = 0;
 	public EntityController playerController;
 
 	private List<Transform> buildings = new List<Transform>();
@@ -39,8 +40,10 @@ public class BuildingController : MonoBehaviour {
 		buildings.Remove(building.transform);
 	}
 
-	public bool Check(int cost) {
-		return (gold >= cost);
+	public bool Check(int cost, GameObject building) {
+		bool check = true;
+		if (building.name == "Building" && currentPeople < 2) check = false;
+		return (gold >= cost && check);
 	}
 
 	public List<Transform> GetBuildings() {
