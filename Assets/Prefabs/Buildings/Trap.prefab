@@ -288,4 +288,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upTime: 1
-  coolDown: 20
+  coolDown: 45

@@ -21,11 +21,9 @@ public class DebugDisplayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		string newText = "health: " + eC.health + "\nattacking: " + toStr(eC.isAttacking) + "\nguarding: " + toStr(eC.isGuarding) + "\nisHit: " + toStr(eC.isHit);
-		newText += "\ndashing: " + toStr(pC.isDashing) + "\nweapon: " + pC.weapon.name;
-		newText += "\nhouse: " + bC.currentBuildings + "/" + bC.maxBuildings;
-		newText += "\nbuildings: " + bC.currentWalls + "/" + bC.maxWalls;
-		newText += "\ncurrent building: " + GridOverlay.instance.currentBuilding;
+		string newText = "Health: " + eC.health;
+		newText += "\nGold: " + bC.gold;
+		newText += "\nCurrent building: " + GridOverlay.instance.currentBuilding;
 		newText += "\nattack count: " + EnemyController.playerAttackCount;
 		text.text = newText;
 	}

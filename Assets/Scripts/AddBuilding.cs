@@ -7,6 +7,7 @@ public class AddBuilding : MonoBehaviour {
 	public GameObject building;
 	public Transform buildingToDefend;
 	public Color green;
+	public int cost = 10;
 	public float constructionDistance;
 
 	private Vector3 currentPosition;
@@ -23,11 +24,11 @@ public class AddBuilding : MonoBehaviour {
 		currentPosition = transform.position;
 		float distance = Vector3.Distance(transform.position, buildingToDefend.position);
 		bool inRange = (distance < constructionDistance);
-		if (!haveCollided && BuildingController.instance.Check(building) && gameObject.activeSelf && inRange) {
+		if (!haveCollided && BuildingController.instance.Check(cost) && gameObject.activeSelf && inRange) {
 			ChangeColor(green);
 			if (Input.GetMouseButtonDown(0)) {
 				GameObject newBuilding = Instantiate(building, transform.position, transform.rotation);
-				BuildingController.instance.AddBuilding(newBuilding, building);
+				BuildingController.instance.AddBuilding(newBuilding, building, cost);
 			}
 		} else {
 			ChangeColor(red);

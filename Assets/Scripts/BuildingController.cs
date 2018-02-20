@@ -7,7 +7,7 @@ public class BuildingController : MonoBehaviour {
 	public static BuildingController instance = null;
 
 	public int maxBuildings = 5;
-	public int maxWalls = 25;
+	public int gold = 1000;
 	public int currentBuildings = 0;
 	public int currentWalls = 0;
 	public EntityController playerController;
@@ -22,8 +22,8 @@ public class BuildingController : MonoBehaviour {
 		}
 	}
 
-	public void AddBuilding(GameObject building, GameObject buildingOrigin) {
-		currentWalls++;
+	public void AddBuilding(GameObject building, GameObject buildingOrigin, int cost) {
+		gold -= cost;;
 		if (buildingOrigin.name == "Building") {
 			playerController.health += 5;
 			buildings.Add(building.transform);
@@ -39,10 +39,8 @@ public class BuildingController : MonoBehaviour {
 		buildings.Remove(building.transform);
 	}
 
-	public bool Check(GameObject building) {
-		if (building.name == "Building")
-			return (currentWalls < maxWalls && currentBuildings < maxBuildings);
-		return (currentWalls < maxWalls);
+	public bool Check(int cost) {
+		return (gold >= cost);
 	}
 
 	public List<Transform> GetBuildings() {
