@@ -18,6 +18,7 @@ public class EntityController : MonoBehaviour {
 
 	private Material material;
 	private bool canFlash = false;
+	private int comboCount = 0;
 
 	void Start() {
 		GameObject graphic = transform.Find("Graphic").gameObject;
@@ -50,6 +51,7 @@ public class EntityController : MonoBehaviour {
 
 	public float TakeDamage(float damage) {
 		if (!isGuarding) {
+			comboCount = 0;
 			if (canFlash) StartCoroutine(flashWhite());
 			health -= damage;
 			healthBar.fillAmount = health / startHealth;
@@ -72,6 +74,14 @@ public class EntityController : MonoBehaviour {
 	public void Attack() {
 		swordAnimation.SetTrigger("Attacking");
 		isAttacking = true;
+	}
+
+	public int GetComboCount() {
+		return comboCount;
+	}
+
+	public void IncreaseComboCount() {
+		comboCount++;
 	}
 
 	IEnumerator flashWhite() {

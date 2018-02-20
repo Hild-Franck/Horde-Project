@@ -24,7 +24,7 @@ public class DebugDisplayer : MonoBehaviour {
 		string newText = "Health: " + eC.health;
 		newText += "\nGold: " + bC.gold;
 		newText += "\nCurrent building: " + GridOverlay.instance.currentBuilding;
-		newText += "\nattack count: " + EnemyController.playerAttackCount;
+		newText += "\nCombo: " + eC.GetComboCount();
 		text.text = newText;
 	}
 

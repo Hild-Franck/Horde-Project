@@ -107,6 +107,10 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	public int GetPlayerCombo() {
+		return entityController.GetComboCount();
+	}
+
 	Vector3 Dash(Vector3 _velocity) {
 		return _velocity + transform.forward * dashSpeed * dashDirection;
 	}
