@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Building
   - Enemy
+  - Trap
   layers:
   - Default
   - TransparentFX

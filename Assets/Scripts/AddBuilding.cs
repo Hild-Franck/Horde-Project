@@ -35,25 +35,21 @@ public class AddBuilding : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col) {
-		if (col.tag == "Building") {
+		if (col.tag == "Building" || col.tag == "Trap") {
 			haveCollided = true;
 		}
 	}
 
 	void OnTriggerStay(Collider col) {
-		if (col.tag == "Building") {
+		if (col.tag == "Building" || col.tag == "Trap") {
 			haveCollided = true;
 		}
 	}
 
 	void OnTriggerExit(Collider col) {
-		if (col.tag == "Building") {
+		if (col.tag == "Building" || col.tag == "Trap") {
 			haveCollided = false;
 		}
-	}
-
-	bool CheckPosition(Transform col) {
-		return (col.position == transform.position);
 	}
 
 	void ChangeColor(Color color) {
