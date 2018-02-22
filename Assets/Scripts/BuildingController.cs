@@ -27,6 +27,7 @@ public class BuildingController : MonoBehaviour {
 		gold -= cost;;
 		if (buildingOrigin.name == "Building") {
 			playerController.health += 5;
+			playerController.startHealth += 5;
 			buildings.Add(building.transform);
 			currentBuildings++;
 		}
