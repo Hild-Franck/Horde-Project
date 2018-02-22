@@ -22,7 +22,7 @@ public class DebugDisplayer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		string newText = "Health: " + eC.health;
-		newText += "\nGold: " + bC.gold;
+		newText += "\nGold: " + bC.gold + "G";
 		newText += "\nCurrent building: " + GridOverlay.instance.currentBuilding;
 		newText += "\nCurrent people: " + bC.currentPeople;
 		newText += "\nCombo: " + eC.GetComboCount();
