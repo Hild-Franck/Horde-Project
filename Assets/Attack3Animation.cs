@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackAnimation : StateMachineBehaviour {
+public class Attack3Animation : StateMachineBehaviour {
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	//override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
@@ -15,9 +15,9 @@ public class AttackAnimation : StateMachineBehaviour {
 	//}
 
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-		if(!animator.GetBool("Combo1")) {
-			animator.SetBool("Attacking", false);
-		}
+		animator.SetBool("Attacking", false);
+		animator.SetBool("Combo1", false);
+		animator.SetBool("Combo2", false);
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

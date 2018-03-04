@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackAnimation : StateMachineBehaviour {
+public class Attack2Animation : StateMachineBehaviour {
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	//override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
@@ -15,8 +15,9 @@ public class AttackAnimation : StateMachineBehaviour {
 	//}
 
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-		if(!animator.GetBool("Combo1")) {
+		if(!animator.GetBool("Combo2")) {
 			animator.SetBool("Attacking", false);
+			animator.SetBool("Combo1", false);
 		}
 	}
 

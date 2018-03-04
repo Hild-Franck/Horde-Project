@@ -7,6 +7,7 @@ public class EntityController : MonoBehaviour {
 
 	public float startHealth = 3f;
 	public float health;
+	public float attackCooldown = 0f;
 	public Animator swordAnimation;
 
 	public bool isGuarding = false;
@@ -19,6 +20,7 @@ public class EntityController : MonoBehaviour {
 	private Material material;
 	private bool canFlash = false;
 	private int comboCount = 0;
+	private float nextAttack = 0f;
 
 	void Start() {
 		GameObject graphic = transform.Find("Graphic").gameObject;
@@ -39,9 +41,6 @@ public class EntityController : MonoBehaviour {
 			Destroy(gameObject);
 		}
 
-		if (isAttacking && !swordAnimation.GetBool("Attacking")) {
-			isAttacking = false;
-		}
 		if (isGuarding && !swordAnimation.GetBool("Guarding")) {
 			isGuarding = false;
 		}
@@ -63,7 +62,7 @@ public class EntityController : MonoBehaviour {
 	}
 
 	public bool CheckAttack() {
-		return (isAttacking && swordAnimation.GetBool("Attacking"));
+		return swordAnimation.GetBool("Attacking");
 	}
 
 	public void Guard() {
@@ -72,8 +71,19 @@ public class EntityController : MonoBehaviour {
 	}
 
 	public void Attack() {
-		swordAnimation.SetTrigger("Attacking");
-		isAttacking = true;
+		if (!swordAnimation.GetBool("Attacking")) {
+			if (Time.time > nextAttack) {
+				swordAnimation.SetTrigger("Attacking");
+				isAttacking = true;
+				nextAttack = attackCooldown + Time.time;
+			}
+		} else if (!swordAnimation.GetBool("Combo1")) {
+			swordAnimation.SetTrigger("Combo1");
+			nextAttack = attackCooldown + Time.time;
+		} else if (!swordAnimation.GetBool("Combo2")) {
+			swordAnimation.SetTrigger("Combo2");
+			nextAttack = attackCooldown + Time.time;
+		}
 	}
 
 	public int GetComboCount() {

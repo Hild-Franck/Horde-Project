@@ -73,21 +73,9 @@ public class PlayerController : MonoBehaviour {
 			entityController.Attack();
 		}
 
-		if (Input.GetButtonDown("Fire2") && !entityController.isGuarding && !entityController.isAttacking) {
+		if (Input.GetButtonDown("Fire2") && !entityController.isGuarding && !entityController.CheckAttack()) {
 			entityController.Guard();
 			speedModifier = 0.5f;
-		}
-
-		if (Input.GetButtonDown("Switch")) {
-			if (weapon == fireBall) {
-				weapon = sword;
-				fireBall.SetActive(false);
-				sword.SetActive(true);
-			} else {
-				weapon = fireBall;
-				fireBall.SetActive(true);
-				sword.SetActive(false);
-			}
 		}
 
 		if (isDashing && Time.time > nextDash) {
