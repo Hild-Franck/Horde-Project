@@ -1081,6 +1081,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startHealth: 10
   health: 10
+  attackCooldown: 1
   swordAnimation: {fileID: 1440044238}
   isGuarding: 0
   isAttacking: 0
@@ -1862,6 +1863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startHealth: 25
   health: 25
+  attackCooldown: 0
   swordAnimation: {fileID: 0}
   isGuarding: 0
   isAttacking: 0
