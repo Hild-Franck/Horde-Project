@@ -94,6 +94,10 @@ public class EntityController : MonoBehaviour {
 		comboCount++;
 	}
 
+	public void ResetCombo() {
+		comboCount = 0;
+	}
+
 	IEnumerator flashWhite() {
 		isHit = true;
 		Color color = material.color;

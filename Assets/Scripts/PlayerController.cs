@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour {
 	public Camera FPSCamera;
 	public GameObject weapon;
 	public bool isDashing = false;
+	public GameObject specialAttack;
 
 	public GameObject fireBall;
 	public GameObject sword;
@@ -73,6 +74,11 @@ public class PlayerController : MonoBehaviour {
 			entityController.Attack();
 		}
 
+		if (Input.GetButtonDown("Switch") && weapon == sword && entityController.GetComboCount() >= 8) {
+			SpecialAttack();
+			entityController.ResetCombo();
+		}
+
 		if (Input.GetButtonDown("Fire2") && !entityController.isGuarding && !entityController.CheckAttack()) {
 			entityController.Guard();
 			speedModifier = 0.5f;
@@ -97,6 +103,13 @@ public class PlayerController : MonoBehaviour {
 
 	public int GetPlayerCombo() {
 		return entityController.GetComboCount();
+	}
+	
+	void SpecialAttack() {
+		Vector3 position = new Vector3(transform.position.x, -0.5f, transform.position.z);
+		GameObject attack = Instantiate (specialAttack, position + (transform.forward * 0.5f), transform.rotation);
+		SpecialAttackController attackController = attack.GetComponent<SpecialAttackController>();
+		attackController.SetNumber(1);
 	}
 
 	Vector3 Dash(Vector3 _velocity) {

@@ -1136,6 +1136,8 @@ MonoBehaviour:
   FPSCamera: {fileID: 2045756266}
   weapon: {fileID: 0}
   isDashing: 0
+  specialAttack: {fileID: 1176376567282084, guid: bb09b53c7dfdab14e9e2d7b43ef141ec,
+    type: 2}
   fireBall: {fileID: 1572492292}
   sword: {fileID: 1440044237}
 --- !u!114 &455407270
