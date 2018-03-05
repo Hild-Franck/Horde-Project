@@ -616,6 +616,7 @@ MonoBehaviour:
   type: 1
   targetBuildings: 1
   attackBar: {fileID: 114785934498731564}
+  goldWorth: 15
 --- !u!114 &114955657303524208
 MonoBehaviour:
   m_ObjectHideFlags: 1

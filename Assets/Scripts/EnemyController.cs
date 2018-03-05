@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour {
 	public EnemyType type = EnemyType.Killer;
 	public bool targetBuildings;
 	public Image attackBar;
+	public int goldWorth;
 	
 	private EntityController entityController;
 	private NavMeshAgent agent;
@@ -174,6 +175,7 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	void OnDestroy() {
+		BuildingController.instance.gold += goldWorth;
 		enemyCount--;
 	}
 }

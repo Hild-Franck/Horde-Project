@@ -104,6 +104,12 @@ public class PlayerController : MonoBehaviour {
 	public int GetPlayerCombo() {
 		return entityController.GetComboCount();
 	}
+
+	public void ResetAnimations() {
+		entityController.swordAnimation.SetBool("Attacking", false);
+		entityController.swordAnimation.SetBool("Combo1", false);
+		entityController.swordAnimation.SetBool("Combo2", false);
+	}
 	
 	void SpecialAttack() {
 		Vector3 position = new Vector3(transform.position.x, -0.5f, transform.position.z);

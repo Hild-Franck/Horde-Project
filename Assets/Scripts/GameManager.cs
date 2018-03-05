@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour {
 		SpawnController.instance.StartWave();
 		FPSModeOn = true;
 		playerSpawn.SetActive(false);
+		player.GetComponent<PlayerController>().ResetAnimations();
 	}
 
 	void SwitchToRTS() {
