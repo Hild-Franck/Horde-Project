@@ -40,6 +40,7 @@ public class EnemyController : MonoBehaviour {
 		spawnTime = Time.time;
 		entityController = GetComponent<EntityController>();
 		bounds = GetComponent<Collider>().bounds;
+		enemyCount++;
 	}
 	
 	// Update is called once per frame

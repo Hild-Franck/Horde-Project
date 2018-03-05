@@ -627,8 +627,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c89360e5d66a45447b4b91b7e77152b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 3
-  health: 3
+  startHealth: 4
+  health: 4
   attackCooldown: 0
   comboTime: 1
   swordAnimation: {fileID: 95054544593710192}

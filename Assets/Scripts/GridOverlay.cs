@@ -45,6 +45,11 @@ public class GridOverlay : MonoBehaviour {
         ghost = null;
     }
 
+    public void ActivateGhost() {
+        ghost = buildingGhosts[0];
+        ghost.SetActive(true);
+    }
+
     void Awake() {
 		if (instance == null) {
 			instance = this;

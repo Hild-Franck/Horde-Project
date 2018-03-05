@@ -3290,7 +3290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b8a0c05538f94f4783d0177184d54f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hazardCount: 10
+  hazardCount: 5
   destructerEnemy: {fileID: 1900150898166904, guid: fcf91e5e6a1b0d942bce20798c6353fe,
     type: 2}
   killerEnemy: {fileID: 1073266347818494, guid: 50e491f6d6be8a647bfcbd40bf40e321,
@@ -3299,6 +3299,7 @@ MonoBehaviour:
   player: {fileID: 455407264}
   spawnWait: 1
   waveCount: 1
+  isSpawning: 0
 --- !u!1 &1517307562
 GameObject:
   m_ObjectHideFlags: 0
