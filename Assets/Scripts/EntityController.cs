@@ -8,6 +8,7 @@ public class EntityController : MonoBehaviour {
 	public float startHealth = 3f;
 	public float health;
 	public float attackCooldown = 0f;
+	public float comboTime;
 	public Animator swordAnimation;
 
 	public bool isGuarding = false;
@@ -21,6 +22,7 @@ public class EntityController : MonoBehaviour {
 	private bool canFlash = false;
 	private int comboCount = 0;
 	private float nextAttack = 0f;
+	private float comboEnd;
 
 	void Start() {
 		GameObject graphic = transform.Find("Graphic").gameObject;
@@ -45,6 +47,9 @@ public class EntityController : MonoBehaviour {
 			isGuarding = false;
 		}
 
+		if (Time.time > comboEnd) {
+			ResetCombo();
+		}
 
 	}
 
@@ -86,11 +91,16 @@ public class EntityController : MonoBehaviour {
 		}
 	}
 
+	public float GetComboEnd() {
+		return comboEnd;
+	}
+
 	public int GetComboCount() {
 		return comboCount;
 	}
 
 	public void IncreaseComboCount() {
+		comboEnd = Time.time + comboTime;
 		comboCount++;
 	}
 

@@ -525,6 +525,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startHealth: 2
   health: 2
+  attackCooldown: 0
+  comboTime: 1
   swordAnimation: {fileID: 95122479445490194}
   isGuarding: 0
   isAttacking: 0
@@ -548,7 +550,7 @@ MonoBehaviour:
   buildingLayer:
     serializedVersion: 2
     m_Bits: 512
-  attackCooldown: 2
+  attackCooldown: 1
   type: 0
   targetBuildings: 0
   attackBar: {fileID: 114647353456372032}
