@@ -42,6 +42,10 @@ public class EnemyController : MonoBehaviour {
 		entityController = GetComponent<EntityController>();
 		bounds = GetComponent<Collider>().bounds;
 		enemyCount++;
+		float modifier = SpawnController.instance.waveCount - 1;
+		entityController.startHealth += modifier;
+		entityController.health += modifier;
+		entityController.damage += modifier;
 	}
 	
 	// Update is called once per frame
@@ -66,6 +70,11 @@ public class EnemyController : MonoBehaviour {
 		}
 
 		Attack();
+	}
+
+	public void Init(GameObject _buildingToAttack, GameObject _player) {
+		buildingToAttack = _buildingToAttack;
+		player = _player;
 	}
 
 	float TargetDistance() {

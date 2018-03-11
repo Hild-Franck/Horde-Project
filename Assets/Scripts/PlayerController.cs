@@ -111,6 +111,7 @@ public class PlayerController : MonoBehaviour {
 		entityController.swordAnimation.SetBool("Combo1", false);
 		entityController.swordAnimation.SetBool("Combo2", false);
 		swordController.Reset();
+		entityController.Reset();
 	}
 	
 	void SpecialAttack() {

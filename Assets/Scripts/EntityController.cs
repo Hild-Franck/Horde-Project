@@ -9,6 +9,7 @@ public class EntityController : MonoBehaviour {
 	public float health;
 	public float attackCooldown = 0f;
 	public float comboTime;
+	public float damage = 1;
 	public Animator swordAnimation;
 
 	public bool isGuarding = false;
@@ -106,6 +107,10 @@ public class EntityController : MonoBehaviour {
 
 	public void ResetCombo() {
 		comboCount = 0;
+	}
+
+	public void Reset() {
+		health = startHealth;
 	}
 
 	IEnumerator flashWhite() {

@@ -38,8 +38,7 @@ public class SpawnController : MonoBehaviour {
 			} else {
 				enemyInstance = Instantiate (destructerEnemy, transform.position, Quaternion.identity);
 			}
-			enemyInstance.GetComponent<EnemyController>().buildingToAttack = buildingToDefend;
-			enemyInstance.GetComponent<EnemyController>().player = player;
+			enemyInstance.GetComponent<EnemyController>().Init(buildingToDefend, player);
 			yield return new WaitForSeconds (spawnWait);
 		}
 		isSpawning = false;

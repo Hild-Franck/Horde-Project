@@ -23,7 +23,7 @@ public class SwordController : MonoBehaviour {
 		string tag = col.gameObject.tag;
 		if ((tag == "Enemy" || tag == "Building" || tag == "Player") && entityController.CheckAttack()) {
 			entityController.IncreaseComboCount();
-			(col.gameObject.GetComponent<EntityController>()).TakeDamage(1);
+			(col.gameObject.GetComponent<EntityController>()).TakeDamage(entityController.damage);
 		}
 	}
 }
