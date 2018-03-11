@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour {
 
 	void SwitchToRTS() {
 		Cursor.lockState = CursorLockMode.None;
+		player.GetComponent<PlayerController>().ResetAnimations();
 		player.SetActive(false);
 		RTS.SetActive(true);
 

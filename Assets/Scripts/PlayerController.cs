@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
 	private PlayerMotor motor;
 	private EntityController entityController;
 	public Animator swordAnimation;
+	public SwordController swordController;
 	public Camera FPSCamera;
 	public GameObject weapon;
 	public bool isDashing = false;
@@ -109,6 +110,7 @@ public class PlayerController : MonoBehaviour {
 		entityController.swordAnimation.SetBool("Attacking", false);
 		entityController.swordAnimation.SetBool("Combo1", false);
 		entityController.swordAnimation.SetBool("Combo2", false);
+		swordController.Reset();
 	}
 	
 	void SpecialAttack() {

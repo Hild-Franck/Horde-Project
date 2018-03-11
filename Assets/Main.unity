@@ -1135,6 +1135,7 @@ MonoBehaviour:
   dashTime: 0.1
   dashSpeed: 3.5
   swordAnimation: {fileID: 1440044238}
+  swordController: {fileID: 1440044241}
   FPSCamera: {fileID: 2045756266}
   weapon: {fileID: 0}
   isDashing: 0
