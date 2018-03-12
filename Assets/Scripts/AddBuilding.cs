@@ -35,6 +35,10 @@ public class AddBuilding : MonoBehaviour {
 		}
 	}
 
+	void FixedUpdate() {
+		haveCollided = false;
+	}
+
 	void OnTriggerEnter(Collider col) {
 		if (col.tag == "Building" || col.tag == "Trap") {
 			haveCollided = true;
