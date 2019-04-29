@@ -37,3 +37,6 @@ debug.log
 # Builds
 *.apk
 *.unitypackage
+
+# Blender backups
+*.blend1*
