@@ -42,9 +42,6 @@ public class GhostWall : Ghost {
 	}
 
 	public override void CancelPreview() {
-		isWallEnding = false;
-		if (wallBeginning.isEndingWall) wallBeginning.SwitchGraphic();
-		if (wallEnding.isEndingWall) wallEnding.SwitchGraphic();
 		ResetGraphics();
 		buildingDetector.ResetCollider();
 	}
@@ -105,5 +102,7 @@ public class GhostWall : Ghost {
 				Destroy(construction);
 		}
 		constructionStack.Clear();
+		wallEnding.ResetPosition();
+		wallBeginning.ResetPosition();
 	}
 }
