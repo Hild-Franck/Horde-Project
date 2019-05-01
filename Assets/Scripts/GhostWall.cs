@@ -11,8 +11,6 @@ public class GhostWall : Ghost {
 	private GhostClosingWall wallEnding;
 	private List<GameObject> constructionStack = new List<GameObject>();
 
-	private bool isWallEnding = false;
-
 	void Start () {
 		buildingDetector = transform.GetComponentInChildren<BuildingDetector>();
 		wallBeginning = transform.GetChild(0).GetComponent<GhostClosingWall>();
@@ -28,9 +26,9 @@ public class GhostWall : Ghost {
 		int currentOffset = Mathf.Abs(currentOffsetCell);
 		buildingDetector.UpdateCollider(currentOffsetCell, currentOffset, GetRotationDirection());
 		if (currentOffset > 0 && currentOffsetCell > 0) {
-			wallEnding.transform.localPosition = new Vector3((currentOffsetCell-.5f) * orientation, 0, -.5f);
+			wallEnding.transform.localPosition = new Vector3((currentOffsetCell) * orientation, 0, 0);
 		} else if (currentOffset > 0 && currentOffsetCell < 0) {
-			wallBeginning.transform.localPosition = new Vector3((currentOffsetCell-.5f) * orientation, 0, -.5f);
+			wallBeginning.transform.localPosition = new Vector3((currentOffsetCell) * orientation, 0, 0);
 		}
 		if (currentOffset > 1 && currentOffsetCell > 0) {
 			PreviewWallCenter(currentOffsetCell, previousOffsetCell, orientation);
@@ -54,6 +52,7 @@ public class GhostWall : Ghost {
 		wallBeginning.Build(wallInstance);
 		wallEnding.Build(wallInstance);
 		foreach (var construction in constructionStack) {
+			Debug.Log(construction);
 			construction.GetComponent<GhostClosingWall>().Build(wallInstance);
 		}
 		ResetGraphics();
