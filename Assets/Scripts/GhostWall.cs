@@ -6,6 +6,7 @@ using UnityEngine;
 public class GhostWall : Ghost {
 	public GameObject wallPrefab;
 	public GameObject ghostWallBeginningPrefab;
+	public GameObject ghostWallCenterPrefab;
 	private GhostClosingWall wallBeginning;
 	private GhostClosingWall wallEnding;
 	private List<GameObject> constructionStack = new List<GameObject>();
@@ -23,34 +24,20 @@ public class GhostWall : Ghost {
 
 	public override void PreviewWall(Vector3 startCell, int previousOffsetCell, int currentOffsetCell) {
 		float orientation = GetRotationDirection();
+		// Number of cells between clicked cell and current hover cell
 		int currentOffset = Mathf.Abs(currentOffsetCell);
 		buildingDetector.UpdateCollider(currentOffsetCell, currentOffset, GetRotationDirection());
-		if (currentOffset > 0) {
-			wallEnding.gameObject.SetActive(true);
-			wallEnding.transform.localPosition = new Vector3(currentOffsetCell * orientation, 0, 0);
-		} else {
-			wallEnding.gameObject.SetActive(false);
-		}
-
 		if (currentOffset > 1) {
+			wallEnding.transform.localPosition = new Vector3(currentOffsetCell * orientation, 0, 0);
+		}
+		if (currentOffset > 2) {
 			PreviewWallCenter(currentOffsetCell, previousOffsetCell, orientation);
 		} else {
 			ResetGraphics();
 		}
-
-		if (currentOffset > 2 && !isWallEnding) {
-			wallBeginning.SwitchGraphic();
-			wallEnding.SwitchGraphic();
-			isWallEnding = true;
-		} else if (currentOffset < 3 && isWallEnding) {
-			wallBeginning.SwitchGraphic();
-			wallEnding.SwitchGraphic();
-			isWallEnding = false;
-		}
 	}
 
 	public override void CancelPreview() {
-		wallEnding.gameObject.SetActive(false);
 		isWallEnding = false;
 		if (wallBeginning.isEndingWall) wallBeginning.SwitchGraphic();
 		if (wallEnding.isEndingWall) wallEnding.SwitchGraphic();
@@ -90,21 +77,22 @@ public class GhostWall : Ghost {
 				}
 			} else if (absOffsetDiff < 0) {
 				absOffsetDiff = Mathf.Abs(absOffsetDiff);
-				foreach (var construction in constructionStack.Skip(absOffset - 1)) {
+				foreach (var construction in constructionStack.Skip(absOffset - 2)) {
 					Destroy(construction);
 				}
-				constructionStack.RemoveRange(absPrevOffset - absOffsetDiff - 1, absOffsetDiff);
+				Debug.Log((absPrevOffset - absOffsetDiff) + " | " + absOffsetDiff);
+				constructionStack.RemoveRange(absPrevOffset - absOffsetDiff - 2, absOffsetDiff);
 			}
 		}
 	}
 
 	private void InstantiateWallCenterPart(float xPosition) {
-		GameObject wallCenterPart = Instantiate(ghostWallBeginningPrefab, Vector3.zero, Quaternion.identity);
+		GameObject wallCenterPart = Instantiate(ghostWallCenterPrefab, Vector3.zero, Quaternion.identity);
 		foreach (Renderer renderer in wallCenterPart.transform.GetComponentsInChildren<Renderer>()) {
 			renderer.material = currentMaterial;
 		}
 		wallCenterPart.transform.parent = transform;
-		wallCenterPart.transform.localPosition = new Vector3(xPosition, 0f, 0f);
+		wallCenterPart.transform.localPosition = new Vector3(xPosition+.5f, 0f, -1f);
 		wallCenterPart.transform.localRotation = Quaternion.identity;
 		constructionStack.Add(wallCenterPart);
 	}

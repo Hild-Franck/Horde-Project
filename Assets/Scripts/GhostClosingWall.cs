@@ -21,10 +21,6 @@ public class GhostClosingWall : MonoBehaviour {
 		graphicsChildNumber = graphics.transform.childCount;
 	}
 	
-	void Update () {
-		
-	}
-
 	public void SwitchGraphic() {
 		isEndingWall = !isEndingWall;
 		for (int i = 0; i < graphicsChildNumber; i++) {
