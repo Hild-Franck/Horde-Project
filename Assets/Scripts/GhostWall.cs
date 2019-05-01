@@ -53,11 +53,10 @@ public class GhostWall : Ghost {
 		wallEnding.Build(wallInstance);
 		foreach (var construction in constructionStack) {
 			Debug.Log(construction);
-			construction.GetComponent<GhostClosingWall>().Build(wallInstance);
+			construction.GetComponent<WallPartGhost>().Build(wallInstance);
 		}
 		ResetGraphics();
 		buildingDetector.ResetCollider();
-		wallEnding.gameObject.SetActive(false);
 	}
 
 	private void PreviewWallCenter(int offset, int prevOffset, float orientation, int mod = 0) {
