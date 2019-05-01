@@ -27,11 +27,15 @@ public class GhostWall : Ghost {
 		// Number of cells between clicked cell and current hover cell
 		int currentOffset = Mathf.Abs(currentOffsetCell);
 		buildingDetector.UpdateCollider(currentOffsetCell, currentOffset, GetRotationDirection());
-		if (currentOffset > 0) {
+		if (currentOffset > 0 && currentOffsetCell > 0) {
 			wallEnding.transform.localPosition = new Vector3((currentOffsetCell-.5f) * orientation, 0, -.5f);
+		} else if (currentOffset > 0 && currentOffsetCell < 0) {
+			wallBeginning.transform.localPosition = new Vector3((currentOffsetCell-.5f) * orientation, 0, -.5f);
 		}
-		if (currentOffset > 1) {
+		if (currentOffset > 1 && currentOffsetCell > 0) {
 			PreviewWallCenter(currentOffsetCell, previousOffsetCell, orientation);
+		} else if(currentOffset > 1 && currentOffsetCell < 0) {
+			PreviewWallCenter(currentOffsetCell, previousOffsetCell, orientation, -1);
 		} else {
 			ResetGraphics();
 		}
@@ -60,7 +64,7 @@ public class GhostWall : Ghost {
 		wallEnding.gameObject.SetActive(false);
 	}
 
-	private void PreviewWallCenter(int offset, int prevOffset, float orientation) {
+	private void PreviewWallCenter(int offset, int prevOffset, float orientation, int mod = 0) {
 		int absOffset = Mathf.Abs(offset);
 		int absPrevOffset = Mathf.Abs(prevOffset);
 		float relOrientation = orientation * Mathf.Sign(offset);
@@ -72,7 +76,7 @@ public class GhostWall : Ghost {
 		} else {
 			int absOffsetDiff = absOffset - absPrevOffset;
 			if (absOffsetDiff > 0) {
-				for (int i = 0; i < absOffsetDiff; i++) {
+				for (int i = 0+mod; i < absOffsetDiff+mod; i++) {
 					InstantiateWallCenterPart(relOrientation * (i + absPrevOffset));
 				}
 			} else if (absOffsetDiff < 0) {
