@@ -27,10 +27,10 @@ public class GhostWall : Ghost {
 		// Number of cells between clicked cell and current hover cell
 		int currentOffset = Mathf.Abs(currentOffsetCell);
 		buildingDetector.UpdateCollider(currentOffsetCell, currentOffset, GetRotationDirection());
-		if (currentOffset > 1) {
-			wallEnding.transform.localPosition = new Vector3(currentOffsetCell * orientation, 0, 0);
+		if (currentOffset > 0) {
+			wallEnding.transform.localPosition = new Vector3((currentOffsetCell-.5f) * orientation, 0, -.5f);
 		}
-		if (currentOffset > 2) {
+		if (currentOffset > 1) {
 			PreviewWallCenter(currentOffsetCell, previousOffsetCell, orientation);
 		} else {
 			ResetGraphics();
@@ -77,11 +77,10 @@ public class GhostWall : Ghost {
 				}
 			} else if (absOffsetDiff < 0) {
 				absOffsetDiff = Mathf.Abs(absOffsetDiff);
-				foreach (var construction in constructionStack.Skip(absOffset - 2)) {
+				foreach (var construction in constructionStack.Skip(absOffset - 1)) {
 					Destroy(construction);
 				}
-				Debug.Log((absPrevOffset - absOffsetDiff) + " | " + absOffsetDiff);
-				constructionStack.RemoveRange(absPrevOffset - absOffsetDiff - 2, absOffsetDiff);
+				constructionStack.RemoveRange(absPrevOffset - absOffsetDiff - 1, absOffsetDiff);
 			}
 		}
 	}
@@ -92,7 +91,7 @@ public class GhostWall : Ghost {
 			renderer.material = currentMaterial;
 		}
 		wallCenterPart.transform.parent = transform;
-		wallCenterPart.transform.localPosition = new Vector3(xPosition+.5f, 0f, -1f);
+		wallCenterPart.transform.localPosition = new Vector3(xPosition, 0f, -1.5f);
 		wallCenterPart.transform.localRotation = Quaternion.identity;
 		constructionStack.Add(wallCenterPart);
 	}

@@ -50,7 +50,7 @@ public class GhostController : MonoBehaviour {
 		if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, mapLayer)) {
 			Transform objectHit = hit.transform;
 			hitPoint = hit.point;
-			coord = new Vector3(Mathf.Floor(hitPoint.x) + .5f, 0, Mathf.Floor(hitPoint.z) + .5f);
+			coord = new Vector3(Mathf.Floor(hitPoint.x), 0, Mathf.Floor(hitPoint.z));
 			if (!isConstructing) ghost.SetPosition(coord);
 		}
 
