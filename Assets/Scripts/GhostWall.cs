@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class GhostWall : Ghost {
 	public GameObject wallPrefab;
-	public GameObject ghostWallBeginningPrefab;
 	public GameObject ghostWallCenterPrefab;
 	private GhostClosingWall wallBeginning;
 	private GhostClosingWall wallEnding;
@@ -52,7 +51,6 @@ public class GhostWall : Ghost {
 		wallBeginning.Build(wallInstance);
 		wallEnding.Build(wallInstance);
 		foreach (var construction in constructionStack) {
-			Debug.Log(construction);
 			construction.GetComponent<WallPartGhost>().Build(wallInstance);
 		}
 		ResetGraphics();

@@ -6,7 +6,9 @@ public class WallPartGhost : MonoBehaviour {
 	public GameObject wallPartPrefab;
 
     public void Build(GameObject parent) {
-		GameObject instance = Instantiate(wallPartPrefab, transform.position, transform.localRotation);
-		instance.transform.parent = parent.transform;
+			GameObject instance = Instantiate(wallPartPrefab, Vector3.zero, Quaternion.identity);
+			instance.transform.parent = parent.transform;
+			instance.transform.localPosition = transform.localPosition;
+			instance.transform.localRotation = transform.localRotation;
 	}
 }

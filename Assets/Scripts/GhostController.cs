@@ -20,6 +20,7 @@ public class GhostController : MonoBehaviour {
 	private Vector3 constructionCellStart;
 	private int lastConstructionOffset = 0;
 	private int constructionOffset = 0;
+	private int rotation = 0;
 
 	void Awake () {
 		if (instance == null) {
@@ -28,6 +29,7 @@ public class GhostController : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
+	
 	void Start () {
 		camera = this.GetComponent<Camera>();
 		mat = new Material(Shader.Find("Hidden/Internal-Colored"));
@@ -40,7 +42,7 @@ public class GhostController : MonoBehaviour {
 		ghost = Instantiate(ghosts[0], ghosts[0].transform.position, ghosts[0].transform.rotation).GetComponent<Ghost>();
 	}
 	
-	// Update is called once per frame
+	
 	void Update () {
 		bool isColliding = ghost.GetDetector().GetIsColliding();
 		ChangeColor(isColliding);
@@ -136,9 +138,17 @@ public class GhostController : MonoBehaviour {
 	}
 
 	private int Construct() {
-		int currentConstructionOffset = ghost.CheckZAxisFacing()
-			? (int)(coord.x - constructionCellStart.x)
-			: (int)(coord.z - constructionCellStart.z);
+		float xOffset = coord.x - constructionCellStart.x;
+		float zOffset = coord.z - constructionCellStart.z;
+		int currentConstructionOffset;
+		if (Mathf.Abs(xOffset) >= Mathf.Abs(zOffset)) {
+			rotation = 0;
+			currentConstructionOffset = (int)xOffset;
+		} else {
+			rotation = -90;
+			currentConstructionOffset = (int)zOffset;
+		}
+		ghost.transform.eulerAngles = new Vector3(0, rotation, 0);
 		ghost.PreviewWall(constructionCellStart, lastConstructionOffset, currentConstructionOffset);
 		lastConstructionOffset = currentConstructionOffset;
 		return currentConstructionOffset;

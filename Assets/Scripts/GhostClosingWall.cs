@@ -10,16 +10,14 @@ public class GhostClosingWall : MonoBehaviour {
 		GameObject instance = Instantiate(wallBeginningPrefab, Vector3.zero, Quaternion.identity);
 		return instance.GetComponent<GhostClosingWall>();
 	}
-	void Start () {
-		initialLocalPosition = transform.localPosition;
-	}
-	
-	public void ResetPosition() {
-		transform.localPosition = initialLocalPosition;
-	}
+    void Start() => initialLocalPosition = transform.localPosition;
 
-	public void Build(GameObject parent) {
-		GameObject instance = Instantiate(wallEndPrefab, transform.position, transform.localRotation);
+    public void ResetPosition() => transform.localPosition = initialLocalPosition;
+
+    public void Build(GameObject parent) {
+		GameObject instance = Instantiate(wallEndPrefab, Vector3.zero, Quaternion.identity);
 		instance.transform.parent = parent.transform;
+		instance.transform.localPosition = transform.localPosition;
+		instance.transform.localRotation = transform.localRotation;
 	}
 }
