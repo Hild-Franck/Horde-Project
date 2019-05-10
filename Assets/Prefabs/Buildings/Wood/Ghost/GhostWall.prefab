@@ -391,12 +391,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 10
+  greenConstruct: {fileID: 2100000, guid: 97134ed45c154914a8b9dc322872a681, type: 2}
+  redConstruct: {fileID: 2100000, guid: 725aab788d5647f458c994b3680c7c2c, type: 2}
   currentMaterial: {fileID: 2100000, guid: 97134ed45c154914a8b9dc322872a681, type: 2}
   building: {fileID: 0}
   isWall: 0
   wallPrefab: {fileID: 1877399813793934, guid: e17411544c5ee63479b0dff9790faa40, type: 3}
-  ghostWallBeginningPrefab: {fileID: 1785112082647700, guid: 429e862c035d25e4dab8308df6712c1d,
-    type: 3}
   ghostWallCenterPrefab: {fileID: 1091956248698804, guid: a5870d0485512de419b2573ed0510356,
     type: 3}
 --- !u!1001 &5866566707279117004

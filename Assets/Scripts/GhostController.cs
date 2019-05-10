@@ -6,20 +6,13 @@ public class GhostController : MonoBehaviour {
 	static public GhostController instance;
 	public LayerMask mapLayer;
 	public Material mat;
-	public Material greenConstruct;
-	public Material redConstruct;
 	public GameObject[] ghosts;
 	public int index = 0;
 	private Ghost ghost;
-	private Camera camera;
+	private Camera cam;
 	private Vector3 hitPoint = Vector3.zero;
 	private Vector3 coord = Vector3.zero;
 	private Color gridColor = Color.green;
-	private bool isConstructing = false;
-	private bool canConstruct = true;
-	private Vector3 constructionCellStart;
-	private int lastConstructionOffset = 0;
-	private int constructionOffset = 0;
 	private int rotation = 0;
 
 	void Awake () {
@@ -31,7 +24,7 @@ public class GhostController : MonoBehaviour {
 	}
 	
 	void Start () {
-		camera = this.GetComponent<Camera>();
+		cam = this.GetComponent<Camera>();
 		mat = new Material(Shader.Find("Hidden/Internal-Colored"));
 		mat.hideFlags = HideFlags.HideAndDontSave;
 		mat.SetColor("_Color", new Color(1, 1, 1, 0.1f));
@@ -44,54 +37,28 @@ public class GhostController : MonoBehaviour {
 	
 	
 	void Update () {
-		bool isColliding = ghost.GetDetector().GetIsColliding();
-		ChangeColor(isColliding);
+		bool collisionChanged = ghost.CheckCollisionChange();
+		ChangeColor(collisionChanged);
+		
+		// Get mouse coordinates on map
 		RaycastHit hit;
-
-		Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+		Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 		if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, mapLayer)) {
 			Transform objectHit = hit.transform;
 			hitPoint = hit.point;
 			coord = new Vector3(Mathf.Floor(hitPoint.x), 0, Mathf.Floor(hitPoint.z));
-			if (!isConstructing) ghost.SetPosition(coord);
+			ghost.SetPosition(coord);
 		}
 
-		if (Input.GetButtonDown("Rotate") && !isConstructing) {
-			ghost.Rotate();
-		}
+		if (Input.GetButtonDown("Rotate")) ghost.Rotate();
 
-		if (isConstructing && ghost.isWall) constructionOffset = Construct();
+		if (Input.GetButtonDown("Fire1")) ghost.Build(coord);
 
-		if (Input.GetButtonDown("Fire1") ) {
-			if (!isConstructing) {
-				if (ghost.GetDetector().GetIsColliding()) {
-					Debug.Log("Unable to construct");
-				} else {
-					if (ghost.isWall) {
-						isConstructing = true;
-						constructionCellStart = coord;
-					} else if (canConstruct) {
-						ghost.Build(constructionCellStart, coord);
-					}
-				}
-			} else if (canConstruct) {
-				ghost.Build(constructionCellStart, coord);
-				isConstructing = false;
-				lastConstructionOffset = 0;
-			}
-		}
-
-		if (Input.GetButtonDown("Fire2") ) {
-			ghost.CancelPreview();
-			isConstructing = false;
-			lastConstructionOffset = 0;
-		}
+		if (Input.GetButtonDown("Fire2")) ghost.Cancel();
 		
 		ghost.GetDetector().UpdateColliderCorners();
 
-		if (Input.GetButtonDown("Fire3")) {
-			Switch(coord);
-		}
+		if (Input.GetButtonDown("Fire3")) Switch(coord);
 
 
 	}
@@ -118,16 +85,8 @@ public class GhostController : MonoBehaviour {
 		return ghost;
 	}
 
-	private void ChangeColor(bool isColliding) {
-		if (isColliding && canConstruct) {
-			gridColor = Color.red;
-			ghost.ChangeGhostColor(redConstruct);
-			canConstruct = false;
-		} else if (!isColliding && !canConstruct) {
-			gridColor = Color.green;
-			ghost.ChangeGhostColor(greenConstruct);
-			canConstruct = true;
-		}
+	private void ChangeColor(bool collisionChanged) {
+		if (collisionChanged) gridColor = gridColor == Color.red ? Color.green : Color.red;
 	}
 
 	private void Switch(Vector3 coord) {
@@ -135,23 +94,6 @@ public class GhostController : MonoBehaviour {
 		Quaternion currentRotation = ghost.GetCurrentRotation();
 		Destroy(ghost.gameObject);
 		ghost = Instantiate(ghosts[index], coord, currentRotation).GetComponent<Ghost>();
-	}
-
-	private int Construct() {
-		float xOffset = coord.x - constructionCellStart.x;
-		float zOffset = coord.z - constructionCellStart.z;
-		int currentConstructionOffset;
-		if (Mathf.Abs(xOffset) >= Mathf.Abs(zOffset)) {
-			rotation = 0;
-			currentConstructionOffset = (int)xOffset;
-		} else {
-			rotation = -90;
-			currentConstructionOffset = (int)zOffset;
-		}
-		ghost.transform.eulerAngles = new Vector3(0, rotation, 0);
-		ghost.PreviewWall(constructionCellStart, lastConstructionOffset, currentConstructionOffset);
-		lastConstructionOffset = currentConstructionOffset;
-		return currentConstructionOffset;
 	}
 
 	private void DrawQuads(float x, float z) {

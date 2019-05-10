@@ -5,6 +5,10 @@ using UnityEngine;
 abstract public class Ghost : MonoBehaviour {
 	public float rotationSpeed = 10;
 	private bool isRotating = false;
+	public Material greenConstruct;
+  public Material redConstruct;
+  protected bool isColliding = false;
+  private bool wasColliding = false;
 	protected Quaternion currentRotation;
 	private Quaternion previousRotation;
 	private float rotationStart = 0;
@@ -14,14 +18,22 @@ abstract public class Ghost : MonoBehaviour {
 	protected BuildingDetector buildingDetector;
 	public bool isWall;
 
-	void Update () {
+	protected virtual void Update () {
+		wasColliding = isColliding;
+		isColliding = buildingDetector.GetIsColliding();
+		if (isColliding && !wasColliding) {
+			ChangeGhostColor(redConstruct);
+		} else if (!isColliding && wasColliding) {
+			ChangeGhostColor(greenConstruct);
+		}
+
 		if (isRotating) {
 			transform.rotation = Quaternion.Lerp(previousRotation, currentRotation, (Time.time - rotationStart) * rotationSpeed);
 			if (transform.rotation == currentRotation) isRotating = false;
 		}
 	}
 
-	public abstract void Build(Vector3 constructionCellStart, Vector3 coord);
+	public abstract void Build(Vector3 coord);
 
 	public void Rotate() {
 		isRotating = true;
@@ -34,8 +46,10 @@ abstract public class Ghost : MonoBehaviour {
 		return buildingDetector;
 	}
 	
-	public void SetPosition(Vector3 coord) {
-		transform.position = coord;
+	public bool CheckCollisionChange() => isColliding != wasColliding;
+
+	public virtual void SetPosition(Vector3 _coord) {
+		transform.position = _coord;
 	}
 
 	public bool CheckZAxisFacing() {
@@ -58,8 +72,5 @@ abstract public class Ghost : MonoBehaviour {
 		return currentRotation;
 	}
 
-	public abstract void PreviewWall(Vector3 startCell, int previousOffsetCell, int currentOffsetCell);
-
-	public abstract void CancelPreview();
-
+	public abstract void Cancel();
 }
