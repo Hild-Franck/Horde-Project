@@ -13,11 +13,18 @@ public class RotationDetector : MonoBehaviour {
 		}
 		if (detected) {
       foreach (Transform child in transform) {
-        child.GetComponent<RotationDetectorTrigger>().RemoveObject();
+        child.GetComponent<RotationDetectorTrigger>().HideObject();
       }	
 		}
 		if (wasDetected != detected) closingWall.ToggleGraphic();
 	}
 
 	public bool CheckRotation() => detected;
+
+	public void RemoveObjects() {
+    foreach (Transform child in transform)
+    {
+      child.GetComponent<RotationDetectorTrigger>().RemoveObject();
+    }
+  }
 }

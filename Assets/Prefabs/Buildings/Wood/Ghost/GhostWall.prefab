@@ -167,6 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallEndPrefab: {fileID: 1917957786918250, guid: 50db8237b7afb824a93c4b984c7f0bc7,
     type: 3}
+  wallEndAltPrefab: {fileID: 8628237565171747044, guid: 64b9b294dec1ae3cbbc8f69cab9debad,
+    type: 3}
 --- !u!1 &1793457073041194
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallEndPrefab: {fileID: 1917957786918250, guid: 50db8237b7afb824a93c4b984c7f0bc7,
+    type: 3}
+  wallEndAltPrefab: {fileID: 8628237565171747044, guid: 64b9b294dec1ae3cbbc8f69cab9debad,
     type: 3}
 --- !u!1 &1927207954664920
 GameObject:
