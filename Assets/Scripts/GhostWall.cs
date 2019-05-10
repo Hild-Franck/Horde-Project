@@ -6,6 +6,9 @@ using UnityEngine;
 public class GhostWall : Ghost {
 	public GameObject wallPrefab;
 	public GameObject ghostWallCenterPrefab;
+	public GameObject preview;
+	public RotationDetector rotationDetectorTop;
+	public RotationDetector rotationDetectorBottom;
 	private GhostClosingWall wallBeginning;
 	private GhostClosingWall wallEnding;
 	private List<GameObject> constructionStack = new List<GameObject>();
@@ -18,8 +21,8 @@ public class GhostWall : Ghost {
 
 	void Start () {
 		buildingDetector = transform.GetComponentInChildren<BuildingDetector>();
-		wallBeginning = transform.GetChild(0).GetComponent<GhostClosingWall>();
-		wallEnding = transform.GetChild(1).GetComponent<GhostClosingWall>();
+		wallBeginning = preview.transform.GetChild(0).GetComponent<GhostClosingWall>();
+		wallEnding = preview.transform.GetChild(1).GetComponent<GhostClosingWall>();
 		currentRotation = transform.rotation;
 		graphics = transform;
 		isWall = true;
@@ -28,6 +31,13 @@ public class GhostWall : Ghost {
 	protected override void Update() {
 		base.Update();
 		if (isConstructing) PreviewWall();
+    if (rotationDetectorTop.CheckRotation() || rotationDetectorBottom.CheckRotation()) {
+      rotation = -90;
+      preview.transform.eulerAngles = new Vector3(0, rotation, 0);
+		} else if (rotation == -90) {
+			rotation = 0;
+      preview.transform.eulerAngles = new Vector3(0, rotation, 0);
+		}
 	}
 
 	public override void SetPosition(Vector3 _coord) {
@@ -49,7 +59,8 @@ public class GhostWall : Ghost {
       rotation = -90;
       currentOffset = (int)zOffset;
     }
-		transform.eulerAngles = new Vector3(0, rotation, 0);
+		if (rotationDetectorTop.CheckRotation() || rotationDetectorBottom.CheckRotation()) rotation = -90;
+		preview.transform.eulerAngles = new Vector3(0, rotation, 0);
     float orientation = GetRotationDirection();
 		// Number of cells between clicked cell and current hover cell
 		int currentAbsOffset = Mathf.Abs(currentOffset);
@@ -84,7 +95,7 @@ public class GhostWall : Ghost {
 	}
 
 	private void Construct() {
-		GameObject wallInstance = Instantiate(wallPrefab, transform.position, transform.rotation);
+		GameObject wallInstance = Instantiate(wallPrefab, transform.position, preview.transform.rotation);
 		BoxCollider col = wallInstance.GetComponent<BoxCollider>();
 		col.size = buildingDetector.GetCollider().size;
 		col.center = buildingDetector.GetCollider().center;
@@ -128,7 +139,7 @@ public class GhostWall : Ghost {
 		foreach (Renderer renderer in wallCenterPart.transform.GetComponentsInChildren<Renderer>()) {
 			renderer.material = currentMaterial;
 		}
-		wallCenterPart.transform.parent = transform;
+		wallCenterPart.transform.parent = preview.transform;
 		wallCenterPart.transform.localPosition = new Vector3(xPosition, 0f, -1.5f);
 		wallCenterPart.transform.localRotation = Quaternion.identity;
 		constructionStack.Add(wallCenterPart);
