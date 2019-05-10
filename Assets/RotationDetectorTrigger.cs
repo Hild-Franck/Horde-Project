@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class RotationDetectorTrigger : MonoBehaviour {
     public bool triggered = false;
-    private GameObject objectToRemove = null;
+    private Spike objectToRemove = null;
 
-    public void HideObject() => objectToRemove.SetActive(false);
+    public void HideObject() => objectToRemove.attachedGrahic.SetActive(false);
     public void RemoveObject() {
-        Destroy(objectToRemove);
-        Destroy(gameObject);
+        objectToRemove.Remove();
+        objectToRemove = null;
+        triggered = false;
     }
+
     void OnTriggerEnter(Collider other) {
         if (other.tag == "Spike") {
             triggered = true;
-            objectToRemove = other.GetComponent<Spike>().attachedGrahic;
+            objectToRemove = other.GetComponent<Spike>();
         }
     }
     void OnTriggerExit(Collider other) {
         if (other.tag == "Spike") {
             triggered = false;
-            objectToRemove.SetActive(true);
+            objectToRemove.attachedGrahic.SetActive(true);
             objectToRemove = null;
         }
     }

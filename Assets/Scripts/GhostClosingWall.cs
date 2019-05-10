@@ -32,10 +32,17 @@ public class GhostClosingWall : MonoBehaviour {
 			instance.transform.parent = parent.transform;
 			instance.transform.localPosition = transform.localPosition;
 			instance.transform.localRotation = transform.localRotation;
+			ResetGraphic();
+    	rotationDetector.Reset();
 	}
 
 	public void ToggleGraphic() {
 		wallEnd.SetActive(!wallEnd.activeSelf);
 		wallEndAlt.SetActive(!wallEndAlt.activeSelf);
+	}
+
+	private void ResetGraphic() {
+		wallEnd.SetActive(true);
+		wallEndAlt.SetActive(false);
 	}
 }

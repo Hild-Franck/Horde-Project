@@ -5,4 +5,9 @@ using UnityEngine;
 public class Spike : MonoBehaviour
 {
    public GameObject attachedGrahic;
+
+   public void Remove() {
+      Destroy(attachedGrahic);
+      Destroy(gameObject);
+   }
 }

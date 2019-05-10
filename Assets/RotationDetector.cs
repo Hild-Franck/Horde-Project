@@ -22,9 +22,12 @@ public class RotationDetector : MonoBehaviour {
 	public bool CheckRotation() => detected;
 
 	public void RemoveObjects() {
-    foreach (Transform child in transform)
-    {
+    foreach (Transform child in transform) {
       child.GetComponent<RotationDetectorTrigger>().RemoveObject();
     }
   }
+
+	public void Reset() {
+		detected = false;
+	}
 }
