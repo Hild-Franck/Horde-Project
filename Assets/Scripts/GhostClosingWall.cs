@@ -8,6 +8,7 @@ public class GhostClosingWall : MonoBehaviour {
 	private Vector3 initialLocalPosition;
 	private GameObject wallEnd;
 	private GameObject wallEndAlt;
+	private SnapDetector snapDetector;
 
 	public static GhostClosingWall Create(GameObject wallBeginningPrefab) {
 		GameObject instance = Instantiate(wallBeginningPrefab, Vector3.zero, Quaternion.identity);
@@ -18,22 +19,21 @@ public class GhostClosingWall : MonoBehaviour {
 			Transform graphic = transform.GetChild(0);
 			wallEnd = graphic.GetChild(0).gameObject;
 			wallEndAlt = graphic.GetChild(1).gameObject;
+			snapDetector = GetComponentInChildren<SnapDetector>();
 		}
 
     public void ResetPosition() => transform.localPosition = initialLocalPosition;
 
-    public void Build(GameObject parent, RotationDetector rotationDetector) {
+    public void Build(GameObject parent) {
 			GameObject prefabToUse = wallEndPrefab;
-			if (rotationDetector.CheckRotation()){
-				rotationDetector.RemoveObjects();
+			if (snapDetector.CheckSnapping()){
+      	snapDetector.RemoveObjects();
 				prefabToUse = wallEndAltPrefab;
 			}
 			GameObject instance = Instantiate(prefabToUse, Vector3.zero, Quaternion.identity);
 			instance.transform.parent = parent.transform;
 			instance.transform.localPosition = transform.localPosition;
 			instance.transform.localRotation = transform.localRotation;
-			ResetGraphic();
-    	rotationDetector.Reset();
 	}
 
 	public void ToggleGraphic() {
@@ -42,6 +42,7 @@ public class GhostClosingWall : MonoBehaviour {
 	}
 
 	private void ResetGraphic() {
+		Debug.Log("Reset graphic");
 		wallEnd.SetActive(true);
 		wallEndAlt.SetActive(false);
 	}

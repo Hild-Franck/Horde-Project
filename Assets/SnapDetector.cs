@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SnapDetector : MonoBehaviour {
-  public GhostClosingWall closingWall;
+  private GhostClosingWall closingWall;
   private bool detected = false;
 
   void Start() {
@@ -23,4 +23,12 @@ public class SnapDetector : MonoBehaviour {
 		}
 		if (wasDetected != detected) closingWall.ToggleGraphic();
 	}
+
+	public bool CheckSnapping() => detected;
+
+  public void RemoveObjects() {
+    foreach (Transform child in transform) {
+      child.GetComponent<SnapDetectorTrigger>().RemoveObject();
+    }
+  }
 }

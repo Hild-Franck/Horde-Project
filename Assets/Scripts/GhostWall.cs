@@ -101,8 +101,8 @@ public class GhostWall : Ghost {
 		BoxCollider col = wallInstance.GetComponent<BoxCollider>();
 		col.size = buildingDetector.GetCollider().size;
 		col.center = buildingDetector.GetCollider().center;
-		wallBeginning.Build(wallInstance, rotationDetectorBottom);
-		wallEnding.Build(wallInstance, rotationDetectorTop);
+		wallBeginning.Build(wallInstance);
+		wallEnding.Build(wallInstance);
 		foreach (var construction in constructionStack) {
 			construction.GetComponent<WallPartGhost>().Build(wallInstance);
 		}

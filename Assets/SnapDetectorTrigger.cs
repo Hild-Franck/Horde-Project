@@ -7,7 +7,11 @@ public class SnapDetectorTrigger : MonoBehaviour {
 	private Spike objectToRemove = null;
 
   public void HideObject() => objectToRemove.attachedGrahic.SetActive(false);
-
+  public void RemoveObject() {
+    objectToRemove.Remove();
+    objectToRemove = null;
+    triggered = false;
+  }
   void OnTriggerEnter(Collider other) {
     if (other.tag == "Spike") {
       triggered = true;
