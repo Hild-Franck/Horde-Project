@@ -6,7 +6,6 @@ public class RotationDetectorTrigger : MonoBehaviour {
     public bool triggered = false;
     private Spike objectToRemove = null;
 
-    public void HideObject() => objectToRemove.attachedGrahic.SetActive(false);
     public void RemoveObject() {
         objectToRemove.Remove();
         objectToRemove = null;
@@ -22,7 +21,6 @@ public class RotationDetectorTrigger : MonoBehaviour {
     void OnTriggerExit(Collider other) {
         if (other.tag == "Spike") {
             triggered = false;
-            objectToRemove.attachedGrahic.SetActive(true);
             objectToRemove = null;
         }
     }

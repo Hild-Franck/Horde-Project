@@ -11,12 +11,6 @@ public class RotationDetector : MonoBehaviour {
 		foreach (Transform child in transform) {
 			if (!child.GetComponent<RotationDetectorTrigger>().triggered) detected = false;
 		}
-		if (detected) {
-      foreach (Transform child in transform) {
-        child.GetComponent<RotationDetectorTrigger>().HideObject();
-      }	
-		}
-		if (wasDetected != detected) closingWall.ToggleGraphic();
 	}
 
 	public bool CheckRotation() => detected;

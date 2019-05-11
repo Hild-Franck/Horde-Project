@@ -17,6 +17,7 @@ public class GhostWall : Ghost {
 	private int currentOffset = 0;
 	private int lastOffset = 0;
 	private int rotation = 0;
+	private bool rotated = false;
 	private Vector3 coord = Vector3.zero;
 
 	void Start () {
@@ -31,10 +32,12 @@ public class GhostWall : Ghost {
 	protected override void Update() {
 		base.Update();
 		if (isConstructing) PreviewWall();
-    if (rotationDetectorTop.CheckRotation() || rotationDetectorBottom.CheckRotation()) {
+    if ((rotationDetectorTop.CheckRotation() || rotationDetectorBottom.CheckRotation()) && !rotated) {
+			rotated = true;
       rotation = -90;
       preview.transform.eulerAngles = new Vector3(0, rotation, 0);
-		} else if (rotation == -90) {
+		} else if (!(rotationDetectorTop.CheckRotation() || rotationDetectorBottom.CheckRotation()) && rotated) {
+			rotated = false;
 			rotation = 0;
       preview.transform.eulerAngles = new Vector3(0, rotation, 0);
 		}
@@ -49,13 +52,10 @@ public class GhostWall : Ghost {
 		lastOffset = currentOffset;
     float xOffset = coord.x - startingCell.x;
     float zOffset = coord.z - startingCell.z;
-    if (Mathf.Abs(xOffset) >= Mathf.Abs(zOffset))
-    {
+    if (Mathf.Abs(xOffset) >= Mathf.Abs(zOffset)) {
       rotation = 0;
       currentOffset = (int)xOffset;
-    }
-    else
-    {
+    } else {
       rotation = -90;
       currentOffset = (int)zOffset;
     }
@@ -83,7 +83,9 @@ public class GhostWall : Ghost {
 		ResetGraphics();
 		buildingDetector.ResetCollider();
 		isConstructing = false;
-	}
+		rotation = 0;
+    preview.transform.eulerAngles = new Vector3(0, rotation, 0);
+  }
 
 	public override void Build(Vector3 coord) {
 		if (!isConstructing) {
@@ -107,7 +109,9 @@ public class GhostWall : Ghost {
 		ResetGraphics();
 		buildingDetector.ResetCollider();
 		isConstructing = false;
-	}
+		rotation = 0;
+    preview.transform.eulerAngles = new Vector3(0, rotation, 0);
+  }
 
 	private void PreviewWallCenter(int offset, int prevOffset, float orientation, int mod = 0) {
 		int absOffset = Mathf.Abs(offset);
