@@ -107,7 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1818564068661373317}
   m_Layer: 0
-  m_Name: WallEndAltGhost
+  m_Name: GhostWallEndAlt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
