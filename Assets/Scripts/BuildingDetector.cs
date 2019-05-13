@@ -61,12 +61,14 @@ public class BuildingDetector : MonoBehaviour {
 
 	public void ResetCollider() {
 		collider.center = new Vector3(0, collider.center.y, collider.center.z);
-		collider.size = new Vector3(0.9f, collider.size.y, collider.size.z);
+		collider.size = new Vector3(3.9f, collider.size.y, collider.size.z);
 	}
 
-	public void UpdateCollider(int currentOffsetCell, int currentOffset, int direction) {
-		collider.center = new Vector3(currentOffsetCell / 2f * direction, collider.center.y, collider.center.z);
-		collider.size = new Vector3(currentOffset + 0.9f, collider.size.y, collider.size.z);
+	public void UpdateCollider(int currentOffsetCell, int currentOffset, float rotation) {
+    transform.rotation = new Quaternion(0, rotation, 0, transform.rotation.w);
+		float mod = Mathf.Sign(currentOffsetCell) == -1 ? 1f : 0;
+		collider.center = new Vector3((currentOffsetCell / 2f - .5f + mod + (rotation == 0 ? 0 : 1f)), collider.center.y, rotation == 0 ? 1f : 0);
+		collider.size = new Vector3(Mathf.Clamp(currentOffset + 2.9f, 3.9f, Mathf.Infinity), collider.size.y, collider.size.z);
 
 	}
 

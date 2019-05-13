@@ -14,9 +14,7 @@ abstract public class Ghost : MonoBehaviour {
 	private float rotationStart = 0;
 	protected Transform graphics;
 	public Material currentMaterial;
-	public GameObject building;
 	protected BuildingDetector buildingDetector;
-	public bool isWall;
 
 	protected virtual void Update () {
 		wasColliding = isColliding;

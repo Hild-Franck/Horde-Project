@@ -26,7 +26,6 @@ public class GhostWall : Ghost {
 		wallEnding = preview.transform.GetChild(1).GetComponent<GhostClosingWall>();
 		currentRotation = transform.rotation;
 		graphics = transform;
-		isWall = true;
 	}
 
 	protected override void Update() {
@@ -64,7 +63,7 @@ public class GhostWall : Ghost {
     float orientation = GetRotationDirection();
 		// Number of cells between clicked cell and current hover cell
 		int currentAbsOffset = Mathf.Abs(currentOffset);
-		buildingDetector.UpdateCollider(currentOffset, currentAbsOffset, GetRotationDirection());
+		buildingDetector.UpdateCollider(currentOffset, currentAbsOffset, preview.transform.rotation.y);
 		if (currentAbsOffset > 0 && currentOffset > 0) {
 			wallEnding.transform.localPosition = new Vector3((currentOffset) * orientation, 0, 0);
 		} else if (currentAbsOffset > 0 && currentOffset < 0) {

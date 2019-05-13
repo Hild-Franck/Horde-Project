@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingGhost : Ghost {
-	void Start () {
-		isWall = false;
+  public GameObject building;
+  void Start () {
 		currentRotation = transform.rotation;
 		graphics = transform.GetChild(0);
 		buildingDetector = transform.GetComponentInChildren<BuildingDetector>();
