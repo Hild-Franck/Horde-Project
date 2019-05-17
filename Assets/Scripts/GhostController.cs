@@ -97,7 +97,7 @@ public class GhostController : MonoBehaviour {
 	}
 
 	private void DrawQuads(float x, float z) {
-		mat.SetColor("_Color", new Color(1, 1, 1, 0.1f));
+		mat.SetColor("_Color", new Color(1, 1, 1, 0.2f));
 		mat.SetPass(0);
 		GL.Begin(GL.QUADS);
 		GL.Color(gridColor);
@@ -109,7 +109,7 @@ public class GhostController : MonoBehaviour {
 	}
 
 	private void DrawVertLines(float x, Vector3 start, Vector3 finish) {
-		mat.SetColor("_Color", new Color(1, 1, 1, .4f));
+		mat.SetColor("_Color", new Color(1, 1, 1, .6f));
 		mat.SetPass(0);
 		GL.Begin(GL.LINES);
 		GL.Color(gridColor);

@@ -60,8 +60,9 @@ public class BuildingDetector : MonoBehaviour {
 	}
 
 	public void ResetCollider() {
-		collider.center = new Vector3(0, collider.center.y, collider.center.z);
+		collider.center = new Vector3(0, collider.center.y, 1);
 		collider.size = new Vector3(3.9f, collider.size.y, collider.size.z);
+    transform.rotation = new Quaternion(0, 0, 0, transform.rotation.w);
 	}
 
 	public void UpdateCollider(int currentOffsetCell, int currentOffset, float rotation) {
