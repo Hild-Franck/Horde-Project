@@ -5,75 +5,116 @@ using UnityEngine;
 
 public class GhostWall : Ghost {
 	public GameObject wallPrefab;
-	public GameObject ghostWallBeginningPrefab;
+	public GameObject ghostWallCenterPrefab;
+	public GameObject preview;
+	public RotationDetector rotationDetectorTop;
+	public RotationDetector rotationDetectorBottom;
 	private GhostClosingWall wallBeginning;
 	private GhostClosingWall wallEnding;
 	private List<GameObject> constructionStack = new List<GameObject>();
-
-	private bool isWallEnding = false;
+	private Vector3 startingCell = Vector3.zero;
+	private bool isConstructing = false;
+	private int currentOffset = 0;
+	private int lastOffset = 0;
+	private int rotation = 0;
+	private bool rotated = false;
+	private Vector3 coord = Vector3.zero;
 
 	void Start () {
 		buildingDetector = transform.GetComponentInChildren<BuildingDetector>();
-		wallBeginning = transform.GetChild(0).GetComponent<GhostClosingWall>();
-		wallEnding = transform.GetChild(1).GetComponent<GhostClosingWall>();
+		wallBeginning = preview.transform.GetChild(0).GetComponent<GhostClosingWall>();
+		wallEnding = preview.transform.GetChild(1).GetComponent<GhostClosingWall>();
 		currentRotation = transform.rotation;
 		graphics = transform;
-		isWall = true;
 	}
 
-	public override void PreviewWall(Vector3 startCell, int previousOffsetCell, int currentOffsetCell) {
-		float orientation = GetRotationDirection();
-		int currentOffset = Mathf.Abs(currentOffsetCell);
-		buildingDetector.UpdateCollider(currentOffsetCell, currentOffset, GetRotationDirection());
-		if (currentOffset > 0) {
-			wallEnding.gameObject.SetActive(true);
-			wallEnding.transform.localPosition = new Vector3(currentOffsetCell * orientation, 0, 0);
-		} else {
-			wallEnding.gameObject.SetActive(false);
+	protected override void Update() {
+		base.Update();
+		if (isConstructing) PreviewWall();
+    if ((rotationDetectorTop.CheckRotation() || rotationDetectorBottom.CheckRotation()) && !rotated) {
+			rotated = true;
+      rotation = -90;
+      preview.transform.eulerAngles = new Vector3(0, rotation, 0);
+		} else if (!(rotationDetectorTop.CheckRotation() || rotationDetectorBottom.CheckRotation()) && rotated) {
+			rotated = false;
+			rotation = 0;
+      preview.transform.eulerAngles = new Vector3(0, rotation, 0);
 		}
+	}
 
-		if (currentOffset > 1) {
-			PreviewWallCenter(currentOffsetCell, previousOffsetCell, orientation);
+	public override void SetPosition(Vector3 _coord) {
+		coord = _coord;
+		if (!isConstructing) transform.position = _coord;
+	}
+
+	private void PreviewWall() {
+		lastOffset = currentOffset;
+    float xOffset = coord.x - startingCell.x;
+    float zOffset = coord.z - startingCell.z;
+    if (Mathf.Abs(xOffset) >= Mathf.Abs(zOffset)) {
+      rotation = 0;
+      currentOffset = (int)xOffset;
+    } else {
+      rotation = -90;
+      currentOffset = (int)zOffset;
+    }
+		if (rotationDetectorTop.CheckRotation() || rotationDetectorBottom.CheckRotation()) rotation = -90;
+		preview.transform.eulerAngles = new Vector3(0, rotation, 0);
+    float orientation = GetRotationDirection();
+		// Number of cells between clicked cell and current hover cell
+		int currentAbsOffset = Mathf.Abs(currentOffset);
+		buildingDetector.UpdateCollider(currentOffset, currentAbsOffset, preview.transform.rotation.y);
+		if (currentAbsOffset > 0 && currentOffset > 0) {
+			wallEnding.transform.localPosition = new Vector3((currentOffset) * orientation, 0, 0);
+		} else if (currentAbsOffset > 0 && currentOffset < 0) {
+			wallBeginning.transform.localPosition = new Vector3((currentOffset) * orientation, 0, 0);
+		}
+		if (currentAbsOffset > 1 && currentOffset > 0) {
+			PreviewWallCenter(currentOffset, lastOffset, orientation);
+		} else if(currentAbsOffset > 1 && currentOffset < 0) {
+			PreviewWallCenter(currentOffset, lastOffset, orientation, -1);
 		} else {
 			ResetGraphics();
 		}
+	}
 
-		if (currentOffset > 2 && !isWallEnding) {
-			wallBeginning.SwitchGraphic();
-			wallEnding.SwitchGraphic();
-			isWallEnding = true;
-		} else if (currentOffset < 3 && isWallEnding) {
-			wallBeginning.SwitchGraphic();
-			wallEnding.SwitchGraphic();
-			isWallEnding = false;
+	public override void Cancel() {
+		ResetGraphics();
+		buildingDetector.ResetCollider();
+		isConstructing = false;
+		rotation = 0;
+    preview.transform.eulerAngles = new Vector3(0, rotation, 0);
+  }
+
+	public override void Build(Vector3 coord) {
+		if (!isConstructing) {
+			startingCell = coord;
+			isConstructing = true;
+		} else if (!isColliding) {
+			Construct();
 		}
 	}
 
-	public override void CancelPreview() {
-		wallEnding.gameObject.SetActive(false);
-		isWallEnding = false;
-		if (wallBeginning.isEndingWall) wallBeginning.SwitchGraphic();
-		if (wallEnding.isEndingWall) wallEnding.SwitchGraphic();
-		ResetGraphics();
-		buildingDetector.ResetCollider();
-	}
-
-	public override void Build(Vector3 constructionCellStart, Vector3 coord) {
-		GameObject wallInstance = Instantiate(wallPrefab, transform.position, transform.rotation);
-		BoxCollider col = wallInstance.GetComponent<BoxCollider>();
-		col.size = buildingDetector.GetCollider().size;
-		col.center = buildingDetector.GetCollider().center;
+	private void Construct() {
+		GameObject wallInstance = Instantiate(wallPrefab, transform.position, preview.transform.rotation);
+		BoxCollider col = wallInstance.GetComponentInChildren<BoxCollider>();
+		Vector3 colSize = buildingDetector.GetCollider().size;
+		Vector3 colCenter = buildingDetector.GetCollider().center;
+		col.size = new Vector3(colSize.x -2, colSize.y, colSize.z - 2);
+		col.center = new Vector3(colCenter.x - (1 - colCenter.z), colCenter.y, 1);
 		wallBeginning.Build(wallInstance);
 		wallEnding.Build(wallInstance);
 		foreach (var construction in constructionStack) {
-			construction.GetComponent<GhostClosingWall>().Build(wallInstance);
+			construction.GetComponent<WallPartGhost>().Build(wallInstance);
 		}
 		ResetGraphics();
 		buildingDetector.ResetCollider();
-		wallEnding.gameObject.SetActive(false);
-	}
+		isConstructing = false;
+		rotation = 0;
+    preview.transform.eulerAngles = new Vector3(0, rotation, 0);
+  }
 
-	private void PreviewWallCenter(int offset, int prevOffset, float orientation) {
+	private void PreviewWallCenter(int offset, int prevOffset, float orientation, int mod = 0) {
 		int absOffset = Mathf.Abs(offset);
 		int absPrevOffset = Mathf.Abs(prevOffset);
 		float relOrientation = orientation * Mathf.Sign(offset);
@@ -85,7 +126,7 @@ public class GhostWall : Ghost {
 		} else {
 			int absOffsetDiff = absOffset - absPrevOffset;
 			if (absOffsetDiff > 0) {
-				for (int i = 0; i < absOffsetDiff; i++) {
+				for (int i = 0+mod; i < absOffsetDiff+mod; i++) {
 					InstantiateWallCenterPart(relOrientation * (i + absPrevOffset));
 				}
 			} else if (absOffsetDiff < 0) {
@@ -99,12 +140,12 @@ public class GhostWall : Ghost {
 	}
 
 	private void InstantiateWallCenterPart(float xPosition) {
-		GameObject wallCenterPart = Instantiate(ghostWallBeginningPrefab, Vector3.zero, Quaternion.identity);
+		GameObject wallCenterPart = Instantiate(ghostWallCenterPrefab, Vector3.zero, Quaternion.identity);
 		foreach (Renderer renderer in wallCenterPart.transform.GetComponentsInChildren<Renderer>()) {
 			renderer.material = currentMaterial;
 		}
-		wallCenterPart.transform.parent = transform;
-		wallCenterPart.transform.localPosition = new Vector3(xPosition, 0f, 0f);
+		wallCenterPart.transform.parent = preview.transform;
+		wallCenterPart.transform.localPosition = new Vector3(xPosition, 0f, -1.5f);
 		wallCenterPart.transform.localRotation = Quaternion.identity;
 		constructionStack.Add(wallCenterPart);
 	}
@@ -114,5 +155,7 @@ public class GhostWall : Ghost {
 				Destroy(construction);
 		}
 		constructionStack.Clear();
+		wallEnding.ResetPosition();
+		wallBeginning.ResetPosition();
 	}
 }

@@ -37,7 +37,7 @@ public class TooltipController : MonoBehaviour {
 					switchTooltip.EnterScreen();
 				}
 			}
-			if (GhostController.instance.GetGhost().isWall && !secondTriggered) {
+			if (GhostController.instance.GetGhost() is GhostWall && !secondTriggered) {
 				secondTooltip.EnterScreen();
 				secondTriggered = true;
 			}
