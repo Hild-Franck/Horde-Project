@@ -7,7 +7,7 @@ abstract public class Ghost : MonoBehaviour {
 	private bool isRotating = false;
 	public Material greenConstruct;
   public Material redConstruct;
-  protected bool isColliding = false;
+  public bool isColliding = false;
   private bool wasColliding = false;
 	protected Quaternion currentRotation;
 	private Quaternion previousRotation;

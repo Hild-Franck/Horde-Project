@@ -90,16 +90,18 @@ public class GhostWall : Ghost {
 		if (!isConstructing) {
 			startingCell = coord;
 			isConstructing = true;
-		} else {
+		} else if (!isColliding) {
 			Construct();
 		}
 	}
 
 	private void Construct() {
 		GameObject wallInstance = Instantiate(wallPrefab, transform.position, preview.transform.rotation);
-		BoxCollider col = wallInstance.GetComponent<BoxCollider>();
-		col.size = buildingDetector.GetCollider().size;
-		col.center = buildingDetector.GetCollider().center;
+		BoxCollider col = wallInstance.GetComponentInChildren<BoxCollider>();
+		Vector3 colSize = buildingDetector.GetCollider().size;
+		Vector3 colCenter = buildingDetector.GetCollider().center;
+		col.size = new Vector3(colSize.x -2, colSize.y, colSize.z - 2);
+		col.center = new Vector3(colCenter.x - (1 - colCenter.z), colCenter.y, 1);
 		wallBeginning.Build(wallInstance);
 		wallEnding.Build(wallInstance);
 		foreach (var construction in constructionStack) {

@@ -52,7 +52,7 @@ public class GhostController : MonoBehaviour {
 
 		if (Input.GetButtonDown("Rotate")) ghost.Rotate();
 
-		if (Input.GetButtonDown("Fire1")) ghost.Build(coord);
+		if (Input.GetButtonDown("Fire1") && !ghost.isColliding) ghost.Build(coord);
 
 		if (Input.GetButtonDown("Fire2")) ghost.Cancel();
 		

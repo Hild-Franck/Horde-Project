@@ -79,14 +79,14 @@ public class BuildingDetector : MonoBehaviour {
 
 
 	void OnTriggerEnter(Collider other) {
-		if (other.tag == "Building") isColliding = true;
+		if (other.transform.parent.tag == "Building") isColliding = true;
 	}
 
 	void OnTriggerStay(Collider other) {
-		if (other.tag == "Building") isColliding = true;
+		if (other.transform.parent.tag == "Building") isColliding = true;
 	}
 
 	void OnTriggerExit(Collider other) {
-		if (other.tag == "Building") isColliding = false;
+		if (other.transform.parent.tag == "Building") isColliding = false;
 	}
 }
