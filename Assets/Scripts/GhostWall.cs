@@ -104,8 +104,11 @@ public class GhostWall : Ghost {
 		col.center = new Vector3(colCenter.x - (1 - colCenter.z), colCenter.y, 1);
 		wallBeginning.Build(wallInstance);
 		wallEnding.Build(wallInstance);
+		float count = 0;
 		foreach (var construction in constructionStack) {
-			construction.GetComponent<WallPartGhost>().Build(wallInstance);
+			GameObject wallPart = construction.GetComponent<WallPartGhost>().Build(wallInstance);
+			wallPart.GetComponent<WallPart>().StartAnimation(count);
+			count += .03f;
 		}
 		ResetGraphics();
 		buildingDetector.ResetCollider();
