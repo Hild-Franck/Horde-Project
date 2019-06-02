@@ -21,6 +21,7 @@ public class GhostWall : Ghost {
 	private Vector3 coord = Vector3.zero;
 
 	void Start () {
+		rotationable = false;
 		buildingDetector = transform.GetComponentInChildren<BuildingDetector>();
 		wallBeginning = preview.transform.GetChild(0).GetComponent<GhostClosingWall>();
 		wallEnding = preview.transform.GetChild(1).GetComponent<GhostClosingWall>();

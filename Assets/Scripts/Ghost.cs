@@ -13,6 +13,7 @@ abstract public class Ghost : MonoBehaviour {
 	private Quaternion previousRotation;
 	private float rotationStart = 0;
 	protected Transform graphics;
+	protected bool rotationable=true;
 	public Material currentMaterial;
 	protected BuildingDetector buildingDetector;
 
@@ -69,6 +70,8 @@ abstract public class Ghost : MonoBehaviour {
 	public Quaternion GetCurrentRotation() {
 		return currentRotation;
 	}
+
+	public bool CheckRotationable() => rotationable;
 
 	public abstract void Cancel();
 }
