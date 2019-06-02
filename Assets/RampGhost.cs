@@ -14,8 +14,8 @@ public class GhostRamp : Ghost {
   }
 
   public override void Build(Vector3 coord) {
-    if (!isColliding) {
-      snapDetector.RemoveObjects();
+    if (!isColliding && snapDetector.CheckDetected()) {
+      snapDetector.ReplaceObjects();
 			Instantiate(building, coord, transform.rotation);
     }
   }
