@@ -50,7 +50,7 @@ public class GhostController : MonoBehaviour {
 			ghost.SetPosition(coord);
 		}
 
-		if (Input.GetButtonDown("Rotate")) ghost.Rotate();
+		if (Input.GetButtonDown("Rotate") && ghost.CheckRotationable()) ghost.Rotate();
 
 		if (Input.GetButtonDown("Fire1") && !ghost.isColliding) ghost.Build(coord);
 
